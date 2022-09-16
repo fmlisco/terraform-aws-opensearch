@@ -4,6 +4,23 @@ variable "cluster_name" {
   default     = "opensearch"
 }
 
+variable "engine_version" {
+  description = "Specify the engine version for the Amazon OpenSearch Service domain"
+  type        = string
+  default     = "OpenSearch_1.3"
+
+  validation {
+    condition     = can(regex("^OpenSearch", var.engine_version))
+    error_message = "Incorrect engine version for the OpenSearch."
+  }
+}
+
+variable "access_policies" {
+  description = "IAM policy document specifying the access policies for the domain"
+  type        = string
+  default     = ""
+}
+
 variable "cluster_version" {
   description = "The version of OpenSearch to deploy."
   type        = string
@@ -27,6 +44,18 @@ variable "master_user_arn" {
   default     = ""
 }
 
+variable "master_user_name" {
+  description = "Main user's username, which is stored in the Amazon OpenSearch Service domain's internal database"
+  type        = string
+  default     = ""
+}
+
+variable "master_user_password" {
+  description = "Main user's password, which is stored in the Amazon OpenSearch Service domain's internal database"
+  type        = string
+  default     = ""
+}
+
 variable "master_instance_enabled" {
   description = "Indicates whether dedicated master nodes are enabled for the cluster."
   type        = bool
@@ -36,7 +65,7 @@ variable "master_instance_enabled" {
 variable "master_instance_type" {
   description = "The type of EC2 instances to run for each master node. A list of available instance types can you find at https://aws.amazon.com/en/opensearch-service/pricing/#On-Demand_instance_pricing"
   type        = string
-  default     = "r6gd.large.elasticsearch"
+  default     = "t3.small.search"
 
   validation {
     condition     = can(regex("^[t3|m5|m6g|r5|r6g|r6gd|i3|c5|c6g]", var.master_instance_type))
@@ -53,7 +82,7 @@ variable "master_instance_count" {
 variable "instance_type" {
   description = "The type of EC2 instances to run for each hot node. A list of available instance types can you find at https://aws.amazon.com/en/opensearch-service/pricing/#On-Demand_instance_pricing"
   type        = string
-  default     = "r6gd.4xlarge.elasticsearch"
+  default     = "t3.small.search"
 
   validation {
     condition     = can(regex("^[t3|m5|m6g|r5|r6g|r6gd|i3|c5|c6g]", var.instance_type))
@@ -96,47 +125,6 @@ variable "encrypt_kms_key_id" {
   type        = string
   default     = ""
 }
-
-variable "saml_subject_key" {
-  description = "Element of the SAML assertion to use for username."
-  type        = string
-  default     = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
-}
-
-variable "saml_roles_key" {
-  description = "Element of the SAML assertion to use for backend roles."
-  type        = string
-  default     = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-}
-
-variable "saml_entity_id" {
-  description = "The unique Entity ID of the application in SAML Identity Provider."
-  type        = string
-}
-
-variable "saml_metadata_content" {
-  description = "The metadata of the SAML application in xml format."
-  type        = string
-}
-
-variable "saml_session_timeout" {
-  description = "Duration of a session in minutes after a user logs in. Default is 60. Maximum value is 1,440."
-  type        = number
-  default     = 60
-}
-
-variable "saml_master_backend_role" {
-  description = "This backend role receives full permissions to the cluster, equivalent to a new master role, but can only use those permissions within Dashboards."
-  type        = string
-  default     = null
-}
-
-variable "saml_master_user_name" {
-  description = "This username receives full permissions to the cluster, equivalent to a new master user, but can only use those permissions within Dashboards."
-  type        = string
-  default     = null
-}
-
 variable "index_templates" {
   description = "A map of all index templates to create."
   type        = map(any)
@@ -215,7 +203,7 @@ variable "ebs_volume_type" {
   default     = "gp3"
 }
 
-variable "volume_size" {
+variable "ebs_volume_size" {
   description = "Size of EBS volumes attached to data nodes (in GiB)"
   type        = number
   default     = 10
@@ -231,8 +219,14 @@ variable "ebs_gp3_throughput" {
       var.ebs_gp3_throughput >= 125 &&
       var.ebs_gp3_throughput <= 1000
     )
-    error_message = "Must be between 125 and 1000 MiB/s"
+    error_message = "Must be between 125 and 1000 MiB/s."
   }
+}
+
+variable "ebs_iops" {
+  description = "Baseline input/output (I/O) performance of EBS volumes attached to data nodes. Applicable only for the GP3 and Provisioned IOPS EBS volume types"
+  type        = number
+  default     = 10000
 }
 
 variable "custom_endpoint_enabled" {
@@ -281,4 +275,53 @@ variable "internal_user_database_enabled" {
   description = "Whether the internal user database is enabled"
   type        = bool
   default     = false
+}
+
+##########
+## SAML ##
+##########
+variable "saml_enabled" {
+  description = "Whether SAML authentication is enabled"
+  type        = bool
+  default     = false
+}
+
+variable "saml_subject_key" {
+  description = "Element of the SAML assertion to use for username."
+  type        = string
+  default     = ""
+}
+
+variable "saml_roles_key" {
+  description = "Element of the SAML assertion to use for backend roles."
+  type        = string
+  default     = ""
+}
+
+variable "saml_entity_id" {
+  description = "The unique Entity ID of the application in SAML Identity Provider."
+  type        = string
+}
+
+variable "saml_metadata_content" {
+  description = "The metadata of the SAML application in xml format."
+  type        = string
+}
+
+variable "saml_session_timeout" {
+  description = "Duration of a session in minutes after a user logs in. Default is 60. Maximum value is 1,440."
+  type        = number
+  default     = 60
+}
+
+variable "saml_master_backend_role" {
+  description = "This backend role receives full permissions to the cluster, equivalent to a new master role, but can only use those permissions within Dashboards."
+  type        = string
+  default     = null
+}
+
+variable "saml_master_user_name" {
+  description = "This username receives full permissions to the cluster, equivalent to a new master user, but can only use those permissions within Dashboards."
+  type        = string
+  default     = null
 }
