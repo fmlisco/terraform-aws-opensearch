@@ -27,15 +27,10 @@ variable "cluster_version" {
   default     = "1.0"
 }
 
-variable "cluster_domain" {
-  description = "The hosted zone name of the OpenSearch cluster."
-  type        = string
-}
-
 variable "create_service_role" {
   description = "Indicates whether to create the service-linked role. See https://docs.aws.amazon.com/opensearch-service/latest/developerguide/slr.html"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "master_user_arn" {
@@ -99,25 +94,36 @@ variable "instance_count" {
 variable "warm_instance_enabled" {
   description = "Indicates whether ultrawarm nodes are enabled for the cluster."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "warm_instance_type" {
   description = "The type of EC2 instances to run for each warm node. A list of available instance types can you find at https://aws.amazon.com/en/elasticsearch-service/pricing/#UltraWarm_pricing"
   type        = string
-  default     = "ultrawarm1.large.elasticsearch"
+  default     = "ultrawarm1.medium.search"
+
+  validation {
+    condition     = can(regex("ultrawarm1.medium.search|ultrawarm1.large.search|ultrawarm1.xlarge.search", var.warm_instance_type))
+    error_message = "Warm Instance Type is not matching with ultrawarm1.medium.search, ultrawarm1.large.search, ultrawarm1.xlarge.search."
+  }
 }
 
 variable "warm_instance_count" {
   description = "The number of dedicated warm nodes in the cluster."
   type        = number
-  default     = 3
+  default     = 2
 }
 
 variable "availability_zones" {
   description = "The number of availability zones for the OpenSearch cluster. Valid values: 1, 2 or 3."
   type        = number
-  default     = 3
+  default     = 2
+}
+
+variable "encrypt_at_rest_enabled" {
+  description = " Whether to enable encryption at rest. If the encrypt_at_rest block is not provided then this defaults to false"
+  type        = bool
+  default     = false
 }
 
 variable "encrypt_kms_key_id" {
@@ -125,64 +131,11 @@ variable "encrypt_kms_key_id" {
   type        = string
   default     = ""
 }
-variable "index_templates" {
-  description = "A map of all index templates to create."
-  type        = map(any)
-  default     = {}
-}
 
-variable "index_template_files" {
-  description = "A set of all index template files to create."
-  type        = set(string)
-  default     = []
-}
-
-variable "ism_policies" {
-  description = "A map of all ISM policies to create."
-  type        = map(any)
-  default     = {}
-}
-
-variable "ism_policy_files" {
-  description = "A set of all ISM policy files to create."
-  type        = set(string)
-  default     = []
-}
-
-variable "indices" {
-  description = "A map of all indices to create."
-  type        = map(any)
-  default     = {}
-}
-
-variable "index_files" {
-  description = "A set of all index files to create."
-  type        = set(string)
-  default     = []
-}
-
-variable "roles" {
-  description = "A map of all roles to create."
-  type        = map(any)
-  default     = {}
-}
-
-variable "role_files" {
-  description = "A set of all role files to create."
-  type        = set(string)
-  default     = []
-}
-
-variable "role_mappings" {
-  description = "A map of all role mappings to create."
-  type        = map(any)
-  default     = {}
-}
-
-variable "role_mapping_files" {
-  description = "A set of all role mapping files to create."
-  type        = set(string)
-  default     = []
+variable "node_to_node_encryption_enabled" {
+  description = "Whether to enable node-to-node encryption. If the node_to_node_encryption block is not provided then this defaults to false"
+  type        = bool
+  default     = false
 }
 
 variable "tags" {
@@ -286,6 +239,12 @@ variable "saml_enabled" {
   default     = false
 }
 
+variable "saml_options_enabled" {
+  description = "Whether SAML authentication options for an AWS OpenSearch Domain is enabled"
+  type        = bool
+  default     = false
+}
+
 variable "saml_subject_key" {
   description = "Element of the SAML assertion to use for username."
   type        = string
@@ -301,11 +260,13 @@ variable "saml_roles_key" {
 variable "saml_entity_id" {
   description = "The unique Entity ID of the application in SAML Identity Provider."
   type        = string
+  default     = ""
 }
 
 variable "saml_metadata_content" {
   description = "The metadata of the SAML application in xml format."
   type        = string
+  default     = ""
 }
 
 variable "saml_session_timeout" {
@@ -324,4 +285,38 @@ variable "saml_master_user_name" {
   description = "This username receives full permissions to the cluster, equivalent to a new master user, but can only use those permissions within Dashboards."
   type        = string
   default     = null
+}
+
+############
+## Alerts ##
+############
+
+variable "red_cluster_status_evaluation_periods" {
+  description = "The number of periods over which data is compared to the specified threshold"
+  type        = number
+  default     = 1
+}
+
+variable "red_cluster_status_period" {
+  description = "The period in seconds over which the specified statistic is applied"
+  type        = number
+  default     = 60
+}
+
+variable "red_cluster_status_threshold" {
+  description = "The value against which the specified statistic is compared. This parameter is required for alarms based on static thresholds, but should not be used for alarms based on anomaly detection models"
+  type        = number
+  default     = 1
+}
+
+variable "alarm_actions" {
+  description = "The list of actions to execute when this alarm transitions into an ALARM state from any other state. Each action is specified as an Amazon Resource Name (ARN)"
+  type        = list(string)
+  default     = []
+}
+
+variable "ok_actions" {
+  description = "The list of actions to execute when this alarm transitions into an OK state from any other state. Each action is specified as an Amazon Resource Name (ARN)"
+  type        = list(string)
+  default     = []
 }

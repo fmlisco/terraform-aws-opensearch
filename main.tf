@@ -57,12 +57,12 @@ resource "aws_opensearch_domain" "this" {
   }
 
   node_to_node_encryption {
-    enabled = true
+    enabled = var.node_to_node_encryption_enabled
   }
 
   encrypt_at_rest {
-    enabled    = true
-    kms_key_id = var.encrypt_kms_key_id
+    enabled    = var.encrypt_at_rest_enabled
+    kms_key_id = var.encrypt_at_rest_enabled ? var.encrypt_kms_key_id : null
   }
 
   ebs_options {
@@ -72,16 +72,18 @@ resource "aws_opensearch_domain" "this" {
     iops        = can(regex("gp3|io1|io2", var.ebs_volume_type)) ? var.ebs_iops : null
     throughput  = var.ebs_volume_type == "gp3" ? var.ebs_gp3_throughput : null
   }
+
   tags = var.tags
 
   depends_on = [aws_iam_service_linked_role.opensearch]
 }
 
 resource "aws_opensearch_domain_saml_options" "this" {
+  count       = var.saml_enabled ? 1 : 0
   domain_name = aws_opensearch_domain.this.domain_name
 
   saml_options {
-    enabled                 = var.saml_enabled
+    enabled                 = var.saml_options_enabled
     subject_key             = var.saml_subject_key
     roles_key               = var.saml_roles_key
     session_timeout_minutes = var.saml_session_timeout
@@ -90,7 +92,7 @@ resource "aws_opensearch_domain_saml_options" "this" {
 
     idp {
       entity_id        = var.saml_entity_id
-      metadata_content = sensitive(replace(var.saml_metadata_content, "\ufeff", ""))
+      metadata_content = var.saml_metadata_content
     }
   }
 }
