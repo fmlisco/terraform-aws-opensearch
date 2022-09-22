@@ -81,3 +81,10 @@ variable "cf_export_pub_subnet_b" {
   type        = string
   default     = "subnetIDPublicB-ap-southeast-1"
 }
+
+
+variable "cf_export_app_sg_id" {
+  description = "app security group id"
+  type        = string
+  default     = "securityGroupIDApplication-ap-southeast-1"
+}

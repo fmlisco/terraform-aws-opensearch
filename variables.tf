@@ -287,6 +287,29 @@ variable "saml_master_user_name" {
   default     = null
 }
 
+variable "log_publishing_enabled" {
+  description = "Whether given log publishing option is enabled or not."
+  type        = bool
+  default     = false
+}
+
+variable "log_type" {
+  description = "Type of OpenSearch log"
+  type        = string
+  default     = "INDEX_SLOW_LOGS"
+
+  validation {
+    condition     = can(regex("INDEX_SLOW_LOGS|SEARCH_SLOW_LOGS|ES_APPLICATION_LOGS|AUDIT_LOGS", var.log_type))
+    error_message = "Valid values: INDEX_SLOW_LOGS, SEARCH_SLOW_LOGS, ES_APPLICATION_LOGS, AUDIT_LOGS."
+  }
+}
+
+variable "cloudwatch_log_group_arn" {
+  description = "ARN of the Cloudwatch log group to which log needs to be published"
+  type        = string
+  default     = ""
+}
+
 ############
 ## Alerts ##
 ############

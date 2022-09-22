@@ -73,6 +73,12 @@ resource "aws_opensearch_domain" "this" {
     throughput  = var.ebs_volume_type == "gp3" ? var.ebs_gp3_throughput : null
   }
 
+  log_publishing_options {
+    enabled                  = var.log_publishing_enabled
+    log_type                 = var.log_publishing_enabled ? var.log_type : null
+    cloudwatch_log_group_arn = var.log_publishing_enabled ? var.cloudwatch_log_group_arn : null
+  }
+
   tags = var.tags
 
   depends_on = [aws_iam_service_linked_role.opensearch]
