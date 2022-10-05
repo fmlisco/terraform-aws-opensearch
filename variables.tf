@@ -1,7 +1,6 @@
 variable "cluster_name" {
   description = "The name of the OpenSearch cluster."
   type        = string
-  default     = "opensearch"
 }
 
 variable "engine_version" {
