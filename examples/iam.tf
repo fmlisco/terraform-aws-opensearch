@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "os_access_policy" {
   statement {
-    sid = "Allow-SPH-IPs"
+    sid = "Allow-Whitelisted-IPs"
 
     effect = "Allow"
 
