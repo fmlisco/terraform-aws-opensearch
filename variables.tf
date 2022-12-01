@@ -1,4 +1,4 @@
-variable "cluster_name" {
+variable "domain_name" {
   description = "The name of the OpenSearch cluster."
   type        = string
 }
@@ -20,10 +20,11 @@ variable "access_policies" {
   default     = ""
 }
 
-variable "cluster_version" {
-  description = "The version of OpenSearch to deploy."
-  type        = string
-  default     = "1.0"
+# once proper authentication added, this will be removed
+variable "whitelist_ips" {
+  description = "Whitelisted client ip address to access."
+  type        = list(string)
+  default     = []
 }
 
 variable "create_service_role" {
@@ -110,31 +111,37 @@ variable "warm_instance_type" {
 variable "warm_instance_count" {
   description = "The number of dedicated warm nodes in the cluster."
   type        = number
-  default     = 2
+  default     = 3
+}
+
+variable "cold_storage_enabled" {
+  description = "Enable cold storage. Master and ultrawarm nodes must be enabled for cold storage."
+  type        = bool
+  default     = false
 }
 
 variable "availability_zones" {
   description = "The number of availability zones for the OpenSearch cluster. Valid values: 1, 2 or 3."
   type        = number
-  default     = 2
+  default     = 3
 }
 
 variable "encrypt_at_rest_enabled" {
-  description = " Whether to enable encryption at rest. If the encrypt_at_rest block is not provided then this defaults to false"
+  description = "Enable encrypt at rest."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "encrypt_kms_key_id" {
   description = "The KMS key ID to encrypt the OpenSearch cluster with. If not specified, then it defaults to using the AWS OpenSearch Service KMS key."
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "node_to_node_encryption_enabled" {
-  description = "Whether to enable node-to-node encryption. If the node_to_node_encryption block is not provided then this defaults to false"
+  description = "Enable node-to-node encryption."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "tags" {
@@ -178,7 +185,7 @@ variable "ebs_gp3_throughput" {
 variable "ebs_iops" {
   description = "Baseline input/output (I/O) performance of EBS volumes attached to data nodes. Applicable only for the GP3 and Provisioned IOPS EBS volume types"
   type        = number
-  default     = 10000
+  default     = 3000
 }
 
 variable "custom_endpoint_enabled" {
@@ -286,28 +293,16 @@ variable "saml_master_user_name" {
   default     = null
 }
 
-variable "log_publishing_enabled" {
-  description = "Whether given log publishing option is enabled or not."
-  type        = bool
-  default     = false
+variable "log_publishing_options" {
+  description = "Configuration block for publishing slow and application logs to CloudWatch Logs."
+  # key is log_type, valid values: index_slow_logs, search_slow_logs, es_application_logs, audit_logs
+  type = map(object({
+    enabled                  = optional(bool, true)
+    cloudwatch_log_group_arn = optional(string, "")
+  }))
+  default = {}
 }
 
-variable "log_type" {
-  description = "Type of OpenSearch log"
-  type        = string
-  default     = "INDEX_SLOW_LOGS"
-
-  validation {
-    condition     = can(regex("INDEX_SLOW_LOGS|SEARCH_SLOW_LOGS|ES_APPLICATION_LOGS|AUDIT_LOGS", var.log_type))
-    error_message = "Valid values: INDEX_SLOW_LOGS, SEARCH_SLOW_LOGS, ES_APPLICATION_LOGS, AUDIT_LOGS."
-  }
-}
-
-variable "cloudwatch_log_group_arn" {
-  description = "ARN of the Cloudwatch log group to which log needs to be published"
-  type        = string
-  default     = ""
-}
 
 ############
 ## Alerts ##

@@ -1,12 +1,13 @@
-resource "aws_iam_service_linked_role" "opensearch" {
-  count            = var.create_service_role ? 1 : 0
-  aws_service_name = "opensearchservice.amazonaws.com"
-}
-
 resource "aws_opensearch_domain" "this" {
-  domain_name     = var.cluster_name
+  # service linked role must exist and default cloudwatch log_group created.
+  depends_on = [
+    aws_iam_service_linked_role.aos,
+    aws_cloudwatch_log_group.aos,
+  ]
+
+  domain_name     = var.domain_name
   engine_version  = var.engine_version
-  access_policies = var.access_policies
+  access_policies = data.aws_iam_policy_document.combined.json
 
   cluster_config {
     dedicated_master_enabled = var.master_instance_enabled
@@ -28,6 +29,10 @@ resource "aws_opensearch_domain" "this" {
         availability_zone_count = zone_awareness_config.value
       }
     }
+
+    cold_storage_options {
+      enabled = var.cold_storage_enabled
+    }
   }
 
   vpc_options {
@@ -41,7 +46,7 @@ resource "aws_opensearch_domain" "this" {
     internal_user_database_enabled = var.internal_user_database_enabled
 
     master_user_options {
-      master_user_arn      = (!var.internal_user_database_enabled && var.master_user_arn != "") ? var.master_user_arn : data.aws_caller_identity.current.arn
+      master_user_arn      = (!var.internal_user_database_enabled && var.master_user_arn != "") ? var.master_user_arn : null
       master_user_name     = (var.internal_user_database_enabled && var.master_user_arn == "") ? var.master_user_name : null
       master_user_password = (var.internal_user_database_enabled && var.master_user_arn == "") ? var.master_user_password : null
     }
@@ -62,7 +67,7 @@ resource "aws_opensearch_domain" "this" {
 
   encrypt_at_rest {
     enabled    = var.encrypt_at_rest_enabled
-    kms_key_id = var.encrypt_at_rest_enabled ? var.encrypt_kms_key_id : null
+    kms_key_id = var.encrypt_kms_key_id
   }
 
   ebs_options {
@@ -73,19 +78,22 @@ resource "aws_opensearch_domain" "this" {
     throughput  = var.ebs_volume_type == "gp3" ? var.ebs_gp3_throughput : null
   }
 
-  log_publishing_options {
-    enabled                  = var.log_publishing_enabled
-    log_type                 = var.log_publishing_enabled ? var.log_type : null
-    cloudwatch_log_group_arn = var.log_publishing_enabled ? var.cloudwatch_log_group_arn : null
+  dynamic "log_publishing_options" {
+    for_each = { for k, v in local.log_publishing_options : k => v if v.enabled }
+    content {
+      log_type                 = upper(log_publishing_options.key)
+      enabled                  = log_publishing_options.value.enabled
+      cloudwatch_log_group_arn = try(log_publishing_options.value.cloudwatch_log_group_arn, "") != "" ? log_publishing_options.value.cloudwatch_log_group_arn : aws_cloudwatch_log_group.aos[log_publishing_options.key].arn
+    }
   }
 
   tags = var.tags
 
-  depends_on = [aws_iam_service_linked_role.opensearch]
 }
 
 resource "aws_opensearch_domain_saml_options" "this" {
-  count       = var.saml_enabled ? 1 : 0
+  count = var.saml_enabled ? 1 : 0
+
   domain_name = aws_opensearch_domain.this.domain_name
 
   saml_options {
