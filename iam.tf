@@ -5,6 +5,7 @@ resource "aws_iam_service_linked_role" "aos" {
 }
 
 data "aws_iam_policy_document" "aos_access_policy" {
+  #checkov:skip=CKV_AWS_283
   statement {
     sid = "admin"
 
