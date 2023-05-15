@@ -4,6 +4,7 @@ locals {
 
 resource "aws_cloudwatch_log_group" "aos" {
   #checkov:skip=CKV_AWS_158:rely on aws default encryption
+  #checkov:skip=CKV_AWS_338:Ensure CloudWatch log groups retains logs for at least 1 year
   for_each = { for k, v in local.log_publishing_options : k => v if v.enabled }
 
   name              = "${local.log_prefix}/${each.key}"

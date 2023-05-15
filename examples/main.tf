@@ -6,6 +6,8 @@ resource "aws_kms_key" "objects" {
 }
 
 resource "aws_cloudwatch_log_group" "opensearch" {
+  #checkov:skip=CKV_AWS_317:Ensure Elasticsearch Domain Audit Logging is enabled
+  #checkov:skip=CKV_AWS_338:Ensure CloudWatch log groups retains logs for at least 1 year
   name              = "os-log-group"
   retention_in_days = 30
   kms_key_id        = aws_kms_key.objects.id

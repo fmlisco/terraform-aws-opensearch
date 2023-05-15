@@ -1,6 +1,5 @@
-# Terraform Modules Template
+# Opensearch
 
-<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -27,6 +26,7 @@ No modules.
 | [aws_cloudwatch_metric_alarm.red_cluster_status](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
 | [aws_iam_service_linked_role.aos](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_service_linked_role) | resource |
 | [aws_opensearch_domain.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearch_domain) | resource |
+| [aws_opensearch_domain_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearch_domain_policy) | resource |
 | [aws_opensearch_domain_saml_options.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearch_domain_saml_options) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.aos_access_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -93,9 +93,8 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_doamin_arn"></a> [doamin\_arn](#output\_doamin\_arn) | ARN of the OpenSearch Cluster |
+| <a name="output_domain_arn"></a> [domain\_arn](#output\_domain\_arn) | ARN of the OpenSearch Cluster |
 | <a name="output_domain_endpoint"></a> [domain\_endpoint](#output\_domain\_endpoint) | Domain-specific endpoint used to submit index, search, and data upload requests |
 | <a name="output_domain_id"></a> [domain\_id](#output\_domain\_id) | Unique identifier for the Cluster |
 | <a name="output_domain_name"></a> [domain\_name](#output\_domain\_name) | Name of the OpenSearch Cluster |
 | <a name="output_kibana_endpoint"></a> [kibana\_endpoint](#output\_kibana\_endpoint) | Domain-specific endpoint for kibana without https scheme. |
-<!-- END_TF_DOCS -->
