@@ -1,12 +1,12 @@
 formatter: "markdown table"
 
-recursive:
-  enabled: true
-  path: modules
+#recursive:
+#  enabled: true
+#  path: modules
 
 output:
   file: "README.md"
-  mode: inject
+  mode: replace
   template: |-
     <!-- BEGIN_TF_DOCS -->
     {{ .Content }}
