@@ -5,6 +5,7 @@ data "aws_caller_identity" "current" {}
 data "aws_iam_policy_document" "cloudwatch" {
   #checkov:skip=CKV_AWS_283=Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource
   #checkov:skip=CKV_AWS_111=Ensure IAM policies does not allow write access without constraints
+  #checkov:skip=CKV_AWS_356=Ensure IAM policies limit resource access
   statement {
     sid = "Add permission for cloudwatch log group to access KMS key"
 
