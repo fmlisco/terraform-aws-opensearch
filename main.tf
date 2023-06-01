@@ -90,8 +90,11 @@ resource "aws_opensearch_domain" "this" {
     }
   }
 
-  tags = var.tags
+  auto_tune_options {
+    desired_state = var.auto_tune_desired_state
+  }
 
+  tags = var.tags
 }
 
 resource "aws_opensearch_domain_policy" "this" {

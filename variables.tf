@@ -337,3 +337,9 @@ variable "ok_actions" {
   type        = list(string)
   default     = []
 }
+
+variable "auto_tune_desired_state" {
+  description = "The Auto-Tune desired state for the domain. Valid values: ENABLED or DISABLED"
+  type        = string
+  default     = "ENABLED"
+}
