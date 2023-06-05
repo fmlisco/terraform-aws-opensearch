@@ -22,3 +22,10 @@ resource "elasticsearch_opensearch_ism_policy_mapping" "existing_policies" {
   policy_id = each.key
   indexes   = each.value.ism_index_pattern
 }
+
+resource "elasticsearch_index_template" "this" {
+  for_each = nonsensitive(var.ism_templates)
+
+  name = each.key
+  body = each.value
+}

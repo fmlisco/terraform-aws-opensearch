@@ -12,3 +12,9 @@ variable "ism_policies" {
   }))
   default = {}
 }
+
+variable "ism_templates" {
+  description = "A map of ISM templates. Body should be json encoded"
+  type        = map(any)
+  default     = {}
+}

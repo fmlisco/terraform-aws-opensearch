@@ -21,16 +21,18 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [elasticsearch_index_template.this](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/index_template) | resource |
 | [elasticsearch_opensearch_ism_policy.this](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opensearch_ism_policy) | resource |
-| [elasticsearch_opensearch_ism_policy_mapping.this](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opensearch_ism_policy_mapping) | resource |
+| [elasticsearch_opensearch_ism_policy_mapping.existing_policies](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opensearch_ism_policy_mapping) | resource |
+| [elasticsearch_opensearch_ism_policy_mapping.new_policies](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opensearch_ism_policy_mapping) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_domain_endpoint"></a> [domain\_endpoint](#input\_domain\_endpoint) | The endpoint of the OpenSearch cluster | `string` | n/a | yes |
-| <a name="input_ism_index_pattern"></a> [ism\_index\_pattern](#input\_ism\_index\_pattern) | Index pattern to apply ISM policies to | `string` | `null` | no |
-| <a name="input_ism_policies"></a> [ism\_policies](#input\_ism\_policies) | A map of all ISM policies to create. Value should be json encoded | `map(string)` | `{}` | no |
+| <a name="input_ism_policies"></a> [ism\_policies](#input\_ism\_policies) | A map of all ISM policies. Body should be json encoded | <pre>map(object({<br>    create            = bool<br>    body              = optional(string)<br>    ism_index_pattern = string<br>  }))</pre> | `{}` | no |
+| <a name="input_ism_templates"></a> [ism\_templates](#input\_ism\_templates) | A map of ISM templates. Body should be json encoded | `map(any)` | `{}` | no |
 
 ## Outputs
 
