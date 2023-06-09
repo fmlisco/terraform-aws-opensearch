@@ -5,10 +5,10 @@ output "pipeline_name" {
 
 output "pipeline_arn" {
   description = "ARN of the ingestion pipeline"
-  value       = aws_cloudformation_stack.this.outputs["PipelineArn"]
+  value       = awscc_osis_pipeline.this.pipeline_arn
 }
 
 output "ingest_endpoint_urls" {
   description = "The ingestion endpoints for the pipeline that you can send data to"
-  value       = aws_cloudformation_stack.this.outputs["IngestEndpointUrls"]
+  value       = awscc_osis_pipeline.this.ingest_endpoint_urls
 }

@@ -3,12 +3,6 @@ variable "domain_name" {
   type        = string
 }
 
-variable "stack_on_failure" {
-  description = "Action to be taken if stack creation fails"
-  type        = string
-  default     = "ROLLBACK"
-}
-
 variable "pipeline_name" {
   description = "Name of the ingestion pipeline"
   type        = string

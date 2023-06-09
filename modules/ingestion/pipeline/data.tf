@@ -2,6 +2,8 @@ data "aws_region" "current" {}
 
 data "aws_caller_identity" "current" {}
 
+data "aws_default_tags" "this" {}
+
 data "aws_iam_policy_document" "cloudwatch" {
   #checkov:skip=CKV_AWS_283=Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource
   #checkov:skip=CKV_AWS_111=Ensure IAM policies does not allow write access without constraints
