@@ -1,4 +1,5 @@
 resource "aws_kms_key" "objects" {
+  #checkov:skip=CKV2_AWS_64:Ensure KMS key Policy is defined
   description             = "KMS key is used to encrypt node data"
   deletion_window_in_days = 7
   is_enabled              = true

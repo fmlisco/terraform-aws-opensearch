@@ -9,7 +9,7 @@ data "aws_iam_policy_document" "cloudwatch" {
   #checkov:skip=CKV_AWS_111=Ensure IAM policies does not allow write access without constraints
   #checkov:skip=CKV_AWS_356=Ensure IAM policies limit resource access
   statement {
-    sid = "Add permission for cloudwatch log group to access KMS key"
+    sid = "AllowKmsAccess"
 
     principals {
       type = "AWS"
@@ -35,6 +35,13 @@ data "aws_iam_policy_document" "cloudwatch" {
 
   statement {
     effect = "Allow"
+
+    principals {
+      type = "AWS"
+      identifiers = [
+        "*"
+      ]
+    }
 
     actions = [
       "logs:PutLogEvents",
