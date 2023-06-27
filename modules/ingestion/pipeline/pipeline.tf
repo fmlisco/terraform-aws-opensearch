@@ -13,4 +13,9 @@ resource "awscc_osis_pipeline" "this" {
   }
 
   tags = local.pipeline_tags
+
+  depends_on = [
+    aws_cloudwatch_log_group.this,
+    module.cloudwatch_kms_secret,
+  ]
 }

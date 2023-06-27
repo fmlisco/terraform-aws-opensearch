@@ -16,5 +16,5 @@ module "cloudwatch_kms_secret" {
 
   key_description       = "Encrypt cloudwatch log group for ${local.pipeline_name}"
   alias                 = "alias/${join("-", [local.pipeline_name, "key"])}"
-  key_policy_statements = [data.aws_iam_policy_document.cloudwatch.json]
+  key_policy_statements = [data.aws_iam_policy_document.cloudwatch_log_group.json]
 }

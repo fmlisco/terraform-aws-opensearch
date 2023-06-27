@@ -1,7 +1,7 @@
 resource "aws_iam_policy" "cloudwatch" {
   count  = var.pipeline_enable_logging ? 1 : 0
   name   = "${local.pipeline_name}-cloudwatch-policy"
-  policy = data.aws_iam_policy_document.cloudwatch.json
+  policy = data.aws_iam_policy_document.pipeline_cloudwatch.json
 
   tags = var.tags
 }
