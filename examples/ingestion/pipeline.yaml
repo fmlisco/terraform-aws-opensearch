@@ -1,0 +1,17 @@
+version: "2"
+example-pipeline:
+  source:
+    http:
+      path: "/$${pipelineName}/test_ingestion_path"
+  processor:
+    - date:
+        from_time_received: true
+        destination: "@timestamp"
+  sink:
+    - opensearch:
+        hosts: ["${opensearch_host}"]
+        index: "application_logs"
+        aws:
+          # IAM role that the pipeline assumes to access the domain sink
+          sts_role_arn: ${sts_role_arn}
+          region: ${region}

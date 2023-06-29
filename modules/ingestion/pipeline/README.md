@@ -4,12 +4,14 @@
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| <a name="requirement_awscc"></a> [awscc](#requirement\_awscc) | >= 0.52.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.67.0 |
+| <a name="provider_awscc"></a> [awscc](#provider\_awscc) | 0.52.0 |
 
 ## Modules
 
@@ -21,12 +23,14 @@
 
 | Name | Type |
 |------|------|
-| [aws_cloudformation_stack.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack) | resource |
 | [aws_cloudwatch_log_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws_iam_policy.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role_policy_attachment.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [awscc_osis_pipeline.this](https://registry.terraform.io/providers/hashicorp/awscc/latest/docs/resources/osis_pipeline) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
-| [aws_iam_policy_document.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_default_tags.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/default_tags) | data source |
+| [aws_iam_policy_document.cloudwatch_log_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.pipeline_cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
@@ -41,9 +45,12 @@
 | <a name="input_pipeline_min_units"></a> [pipeline\_min\_units](#input\_pipeline\_min\_units) | The minimum pipeline capacity, in Ingestion Compute Units | `number` | n/a | yes |
 | <a name="input_pipeline_name"></a> [pipeline\_name](#input\_pipeline\_name) | Name of the ingestion pipeline | `string` | `null` | no |
 | <a name="input_pipeline_role_name"></a> [pipeline\_role\_name](#input\_pipeline\_role\_name) | Name of the pipeline role to use | `string` | n/a | yes |
-| <a name="input_stack_on_failure"></a> [stack\_on\_failure](#input\_stack\_on\_failure) | Action to be taken if stack creation fails | `bool` | `"ROLLBACK"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_ingest_endpoint_urls"></a> [ingest\_endpoint\_urls](#output\_ingest\_endpoint\_urls) | The ingestion endpoints for the pipeline that you can send data to |
+| <a name="output_pipeline_arn"></a> [pipeline\_arn](#output\_pipeline\_arn) | ARN of the ingestion pipeline |
+| <a name="output_pipeline_name"></a> [pipeline\_name](#output\_pipeline\_name) | Name of the ingestion pipeline |

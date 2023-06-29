@@ -21,7 +21,7 @@ resource "aws_cloudwatch_log_resource_policy" "opensearch" {
 }
 
 module "opensearch" {
-  source = "../"
+  source = "../../"
 
   domain_name    = var.domain_name
   engine_version = var.engine_version
