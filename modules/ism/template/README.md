@@ -19,7 +19,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [opensearch_index_template.this](https://registry.terraform.io/providers/opensearch-project/opensearch/latest/docs/resources/index_template) | resource |
+| [opensearch_composable_index_template.this](https://registry.terraform.io/providers/opensearch-project/opensearch/latest/docs/resources/composable_index_template) | resource |
 
 ## Inputs
 
