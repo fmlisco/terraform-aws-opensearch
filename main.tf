@@ -91,8 +91,21 @@ resource "aws_opensearch_domain" "this" {
   }
 
   auto_tune_options {
-    desired_state = var.auto_tune_desired_state
+    desired_state       = var.auto_tune_desired_state
+    rollback_on_disable = var.rollback_on_disable
+    dynamic "maintenance_schedule" {
+      for_each = var.maintenance_schedule
+      content {
+        start_at = maintenance_schedule.start_at
+        duration {
+          value = maintenance_schedule.duration
+          unit  = "HOURS"
+        }
+        cron_expression_for_recurrence = maintenance_schedule.cron_expression_for_recurrence
+      }
+    }
   }
+
 
   tags = var.tags
 }

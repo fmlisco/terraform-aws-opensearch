@@ -343,3 +343,15 @@ variable "auto_tune_desired_state" {
   type        = string
   default     = "ENABLED"
 }
+
+variable "rollback_on_disable" {
+  description = "whether to roll back auto tune if auto tune is disabled"
+  type        = string
+  default     = "NO_ROLLBACK"
+}
+
+variable "maintenance_schedule" {
+  description = "configuration for auto tune maintenance schedule"
+  type        = map(any)
+  default     = {}
+}
