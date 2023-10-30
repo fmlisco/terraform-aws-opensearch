@@ -17,8 +17,3 @@ output "domain_endpoint" {
   description = "Domain-specific endpoint used to submit index, search, and data upload requests"
   value       = module.opensearch.domain_endpoint
 }
-
-output "kibana_endpoint" {
-  description = "Domain-specific endpoint for kibana without https scheme."
-  value       = module.opensearch.kibana_endpoint
-}

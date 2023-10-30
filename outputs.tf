@@ -17,8 +17,3 @@ output "domain_endpoint" {
   description = "Domain-specific endpoint used to submit index, search, and data upload requests"
   value       = aws_opensearch_domain.this.endpoint
 }
-
-output "kibana_endpoint" {
-  description = "Domain-specific endpoint for kibana without https scheme."
-  value       = aws_opensearch_domain.this.kibana_endpoint
-}

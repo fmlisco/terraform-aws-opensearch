@@ -98,4 +98,3 @@ No modules.
 | <a name="output_domain_endpoint"></a> [domain\_endpoint](#output\_domain\_endpoint) | Domain-specific endpoint used to submit index, search, and data upload requests |
 | <a name="output_domain_id"></a> [domain\_id](#output\_domain\_id) | Unique identifier for the Cluster |
 | <a name="output_domain_name"></a> [domain\_name](#output\_domain\_name) | Name of the OpenSearch Cluster |
-| <a name="output_kibana_endpoint"></a> [kibana\_endpoint](#output\_kibana\_endpoint) | Domain-specific endpoint for kibana without https scheme. |
