@@ -1,9 +1,9 @@
-output "pipeline_name" {
-  description = "Name of the ingestion pipeline"
-  value       = local.pipeline_name
+output "id" {
+  description = "ID of the ingestion pipeline"
+  value       = awscc_osis_pipeline.this.id
 }
 
-output "pipeline_arn" {
+output "arn" {
   description = "ARN of the ingestion pipeline"
   value       = awscc_osis_pipeline.this.pipeline_arn
 }

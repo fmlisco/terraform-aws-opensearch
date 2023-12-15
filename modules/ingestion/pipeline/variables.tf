@@ -1,41 +1,47 @@
-variable "domain_name" {
-  description = "The name of the OpenSearch cluster"
-  type        = string
-}
-
-variable "pipeline_name" {
+variable "name" {
   description = "Name of the ingestion pipeline"
   type        = string
-  default     = null
 }
 
-variable "pipeline_role_name" {
-  description = "Name of the pipeline role to use"
+variable "iam_role_name" {
+  description = "Name of the pipeline IAM role"
   type        = string
 }
 
-variable "pipeline_configuration_body" {
+variable "configuration_body" {
   description = "The Data Prepper pipeline configuration in YAML format"
   type        = string
 }
 
-variable "pipeline_min_units" {
+variable "min_units" {
   description = "The minimum pipeline capacity, in Ingestion Compute Units"
   type        = number
 }
 
-variable "pipeline_max_units" {
+variable "max_units" {
   description = "The maximum pipeline capacity, in Ingestion Compute Units"
   type        = number
 }
 
-variable "pipeline_enable_logging" {
+variable "enable_logging" {
   description = "If true, will create a cloudwatch log group to monitor the pipeline"
   type        = bool
   default     = true
 }
 
-variable "pipeline_log_group_retention_days" {
+variable "subnet_ids" {
+  description = "Subnet IDs to deploy pipeline in. Only needed if pipeline is to be deployed in VPC mode"
+  type        = list(string)
+  default     = []
+}
+
+variable "security_group_ids" {
+  description = "Security group IDs to attach to the pipeline"
+  type        = list(string)
+  default     = []
+}
+
+variable "log_group_retention_days" {
   description = "Duration in days for cloudwatch log group retention"
   type        = number
   default     = 30

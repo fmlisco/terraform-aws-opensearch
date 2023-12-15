@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "cloudwatch_log_group" {
     condition {
       test     = "ArnLike"
       variable = "kms:EncryptionContext:aws:logs:arn"
-      values   = ["arn:aws:logs:${local.region}:${local.account_id}:log-group:*"]
+      values   = ["arn:aws:logs:${local.region}:${local.account_id}:log-group:${local.pipeline_log_group}"]
     }
   }
 }
@@ -51,6 +51,9 @@ data "aws_iam_policy_document" "pipeline_cloudwatch" {
       "logs:ListLogDeliveries"
     ]
 
-    resources = ["*"]
+    resources = [
+      "arn:aws:logs:${local.region}:${local.account_id}:log-group:${local.pipeline_log_group}",
+      "arn:aws:logs:${local.region}:${local.account_id}:log-group:${local.pipeline_log_group}:log-stream:*"
+    ]
   }
 }

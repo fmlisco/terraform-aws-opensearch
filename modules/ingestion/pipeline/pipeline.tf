@@ -1,12 +1,14 @@
 resource "awscc_osis_pipeline" "this" {
-  pipeline_name               = local.pipeline_name
-  pipeline_configuration_body = var.pipeline_configuration_body
+  pipeline_name               = var.name
+  pipeline_configuration_body = var.configuration_body
 
-  min_units = var.pipeline_min_units
-  max_units = var.pipeline_max_units
+  vpc_options = local.vpc_options
+  min_units   = var.min_units
+  max_units   = var.max_units
 
   log_publishing_options = {
-    is_logging_enabled = var.pipeline_enable_logging
+    is_logging_enabled = var.enable_logging
+
     cloudwatch_log_destination = {
       log_group = local.pipeline_log_group
     }

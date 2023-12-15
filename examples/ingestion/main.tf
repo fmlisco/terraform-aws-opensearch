@@ -15,20 +15,20 @@ module "ingestion_iam" {
   #checkov:skip=CKV_TF_1:Ensure Terraform module sources use a commit hash
   source = "../..//modules/ingestion/iam"
 
-  domain_name = local.domain_name
-  domain_arn  = "arn:aws:es:${local.region}:${local.account_id}:domain/${local.domain_name}"
+  pipeline_role_name = "opensearch-ingestion-role"
+  opensearch_domain_arns = [
+    "arn:aws:es:${local.region}:${local.account_id}:domain/${local.domain_name}",
+  ]
 }
 
 module "ingestion_pipeline" {
   #checkov:skip=CKV_TF_1:Ensure Terraform module sources use a commit hash
   source = "../..//modules/ingestion/pipeline"
 
-  domain_name = local.domain_name
+  name      = "opensearch-ingestion-pipeline"
+  min_units = 1
+  max_units = 2
 
-  pipeline_name      = "${local.domain_name}-pipeline"
-  pipeline_min_units = 1
-  pipeline_max_units = 2
-
-  pipeline_role_name          = module.ingestion_iam.pipeline_role_name
-  pipeline_configuration_body = templatefile("./pipeline.yaml", local.pipeline_values)
+  iam_role_name      = module.ingestion_iam.pipeline_role_name
+  configuration_body = templatefile("./pipeline.yaml", local.pipeline_values)
 }

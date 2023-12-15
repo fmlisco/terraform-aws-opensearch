@@ -2,7 +2,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.4  |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.4 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.38 |
 | <a name="requirement_awscc"></a> [awscc](#requirement\_awscc) | >= 0.52 |
 
@@ -37,20 +37,21 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | The name of the OpenSearch cluster | `string` | n/a | yes |
-| <a name="input_pipeline_configuration_body"></a> [pipeline\_configuration\_body](#input\_pipeline\_configuration\_body) | The Data Prepper pipeline configuration in YAML format | `string` | n/a | yes |
-| <a name="input_pipeline_enable_logging"></a> [pipeline\_enable\_logging](#input\_pipeline\_enable\_logging) | If true, will create a cloudwatch log group to monitor the pipeline | `bool` | `true` | no |
-| <a name="input_pipeline_log_group_retention_days"></a> [pipeline\_log\_group\_retention\_days](#input\_pipeline\_log\_group\_retention\_days) | Duration in days for cloudwatch log group retention | `number` | `30` | no |
-| <a name="input_pipeline_max_units"></a> [pipeline\_max\_units](#input\_pipeline\_max\_units) | The maximum pipeline capacity, in Ingestion Compute Units | `number` | n/a | yes |
-| <a name="input_pipeline_min_units"></a> [pipeline\_min\_units](#input\_pipeline\_min\_units) | The minimum pipeline capacity, in Ingestion Compute Units | `number` | n/a | yes |
-| <a name="input_pipeline_name"></a> [pipeline\_name](#input\_pipeline\_name) | Name of the ingestion pipeline | `string` | `null` | no |
-| <a name="input_pipeline_role_name"></a> [pipeline\_role\_name](#input\_pipeline\_role\_name) | Name of the pipeline role to use | `string` | n/a | yes |
+| <a name="input_configuration_body"></a> [configuration\_body](#input\_configuration\_body) | The Data Prepper pipeline configuration in YAML format | `string` | n/a | yes |
+| <a name="input_enable_logging"></a> [enable\_logging](#input\_enable\_logging) | If true, will create a cloudwatch log group to monitor the pipeline | `bool` | `true` | no |
+| <a name="input_iam_role_name"></a> [iam\_role\_name](#input\_iam\_role\_name) | Name of the pipeline IAM role | `string` | n/a | yes |
+| <a name="input_log_group_retention_days"></a> [log\_group\_retention\_days](#input\_log\_group\_retention\_days) | Duration in days for cloudwatch log group retention | `number` | `30` | no |
+| <a name="input_max_units"></a> [max\_units](#input\_max\_units) | The maximum pipeline capacity, in Ingestion Compute Units | `number` | n/a | yes |
+| <a name="input_min_units"></a> [min\_units](#input\_min\_units) | The minimum pipeline capacity, in Ingestion Compute Units | `number` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Name of the ingestion pipeline | `string` | n/a | yes |
+| <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | Security group IDs to attach to the pipeline | `list(string)` | `[]` | no |
+| <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | Subnet IDs to deploy pipeline in. Only needed if pipeline is to be deployed in VPC mode | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| <a name="output_arn"></a> [arn](#output\_arn) | ARN of the ingestion pipeline |
+| <a name="output_id"></a> [id](#output\_id) | ID of the ingestion pipeline |
 | <a name="output_ingest_endpoint_urls"></a> [ingest\_endpoint\_urls](#output\_ingest\_endpoint\_urls) | The ingestion endpoints for the pipeline that you can send data to |
-| <a name="output_pipeline_arn"></a> [pipeline\_arn](#output\_pipeline\_arn) | ARN of the ingestion pipeline |
-| <a name="output_pipeline_name"></a> [pipeline\_name](#output\_pipeline\_name) | Name of the ingestion pipeline |

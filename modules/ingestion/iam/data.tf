@@ -1,14 +1,14 @@
-data "aws_iam_policy_document" "pipeline_opensearch" {
+data "aws_iam_policy_document" "opensearch_ingestion" {
 
   statement {
     effect    = "Allow"
     actions   = ["es:DescribeDomain"]
-    resources = [var.domain_arn]
+    resources = var.opensearch_domain_arns
   }
 
   statement {
     effect    = "Allow"
     actions   = ["es:ESHttp*"]
-    resources = ["${var.domain_arn}/*"]
+    resources = [for domain in var.opensearch_domain_arns : "${domain}/*"]
   }
 }
