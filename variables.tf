@@ -80,7 +80,7 @@ variable "instance_type" {
   default     = "t3.small.search"
 
   validation {
-    condition     = can(regex("^[t3|m5|m6g|r5|r6g|r6gd|i3|c5|c6g]", var.instance_type))
+    condition     = can(regex("^[t3|m5|m6g|r5|r6g|r6gd|i3|c5|c6g|or1]", var.instance_type))
     error_message = "The EC2 instance_type must provide a SSD or NVMe-based local storage."
   }
 }
