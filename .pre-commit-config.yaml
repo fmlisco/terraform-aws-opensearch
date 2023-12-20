@@ -4,19 +4,21 @@ repos:
     hooks:
       - id: terraform-fmt
       - id: terraform-validate
-      - id: tflint
-        args:
-          - "--module"
-          - "--config=.tflint.hcl"
       - id: markdown-link-check
       - id: shellcheck
 
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.64.0
     hooks:
+      - id: terraform_tflint
+        args:
+          - --args=--module
+          - --args=--config=__GIT_WORKING_DIR__/.tflint.hcl
       - id: terraform_docs
         args:
-          - "--args=--lockfile=false"
+          - --hook-config=--path-to-file=README.md
+          - --hook-config=--add-to-existing-file=true
+          - --hook-config=--recursive=true
       - id: terraform_tfsec
         args:
           - --args=--exclude-downloaded-modules

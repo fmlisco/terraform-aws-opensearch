@@ -20,6 +20,12 @@ variable "access_policies" {
   default     = ""
 }
 
+variable "admin_identifiers" {
+  description = "Admin Identifiers to be allowed in the Access Policy of Opensearch Cluster"
+  type        = list(string)
+  default     = ["*"]
+}
+
 # once proper authentication added, this will be removed
 variable "whitelist_ips" {
   description = "Whitelisted client ip address to access."

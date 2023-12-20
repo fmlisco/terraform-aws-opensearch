@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "aos_access_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = ["*"]
+      identifiers = var.admin_identifiers
     }
 
     actions = ["es:*"]
