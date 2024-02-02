@@ -14,6 +14,10 @@ resource "awscc_osis_pipeline" "this" {
     }
   }
 
+  buffer_options = {
+    persistent_buffer_enabled = var.persistent_buffer_enabled
+  }
+
   tags = local.pipeline_tags
 
   depends_on = [

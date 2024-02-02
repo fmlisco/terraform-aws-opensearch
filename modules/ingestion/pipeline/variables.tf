@@ -41,6 +41,12 @@ variable "security_group_ids" {
   default     = []
 }
 
+variable "persistent_buffer_enabled" {
+  description = "Whether persistent buffering should be enabled"
+  type        = bool
+  default     = false
+}
+
 variable "log_group_retention_days" {
   description = "Duration in days for cloudwatch log group retention"
   type        = number
