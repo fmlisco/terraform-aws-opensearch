@@ -309,6 +309,11 @@ variable "log_publishing_options" {
   default = {}
 }
 
+variable "cloudwatch_log_group_retention_days" {
+  description = "Cloudwatch log group retention period in days"
+  type        = number
+  default     = 7
+}
 
 ############
 ## Alerts ##

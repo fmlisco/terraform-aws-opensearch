@@ -4,7 +4,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.4  |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.4 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.38 |
 
 ## Providers
@@ -39,12 +39,13 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_policies"></a> [access\_policies](#input\_access\_policies) | IAM policy document specifying the access policies for the domain | `string` | `""` | no |
-| <a name="input_admin_identifiers"></a> [admin\_identifiers](#input\_admin\_identifiers) | Admin Identifiers to be allowed in the Access Policy of Opensearch Cluster | `list(string)` | `["*"]` | no |
+| <a name="input_admin_identifiers"></a> [admin\_identifiers](#input\_admin\_identifiers) | Admin Identifiers to be allowed in the Access Policy of Opensearch Cluster | `list(string)` | <pre>[<br>  "*"<br>]</pre> | no |
 | <a name="input_advanced_security_options_enabled"></a> [advanced\_security\_options\_enabled](#input\_advanced\_security\_options\_enabled) | Whether advanced security is enabled | `bool` | `false` | no |
 | <a name="input_alarm_actions"></a> [alarm\_actions](#input\_alarm\_actions) | The list of actions to execute when this alarm transitions into an ALARM state from any other state. Each action is specified as an Amazon Resource Name (ARN) | `list(string)` | `[]` | no |
 | <a name="input_anonymous_auth_enabled"></a> [anonymous\_auth\_enabled](#input\_anonymous\_auth\_enabled) | Whether Anonymous auth is enabled. Enables fine-grained access control on an existing domain. Ignored unless advanced\_security\_options are enabled. Can only be enabled on an existing domain | `bool` | `false` | no |
 | <a name="input_auto_tune_desired_state"></a> [auto\_tune\_desired\_state](#input\_auto\_tune\_desired\_state) | The Auto-Tune desired state for the domain. Valid values: ENABLED or DISABLED | `string` | `"ENABLED"` | no |
 | <a name="input_availability_zones"></a> [availability\_zones](#input\_availability\_zones) | The number of availability zones for the OpenSearch cluster. Valid values: 1, 2 or 3. | `number` | `3` | no |
+| <a name="input_cloudwatch_log_group_retention_days"></a> [cloudwatch\_log\_group\_retention\_days](#input\_cloudwatch\_log\_group\_retention\_days) | Cloudwatch log group retention period in days | `number` | `7` | no |
 | <a name="input_cold_storage_enabled"></a> [cold\_storage\_enabled](#input\_cold\_storage\_enabled) | Enable cold storage. Master and ultrawarm nodes must be enabled for cold storage. | `bool` | `false` | no |
 | <a name="input_create_service_role"></a> [create\_service\_role](#input\_create\_service\_role) | Indicates whether to create the service-linked role. See https://docs.aws.amazon.com/opensearch-service/latest/developerguide/slr.html | `bool` | `false` | no |
 | <a name="input_custom_endpoint"></a> [custom\_endpoint](#input\_custom\_endpoint) | Custom Endpoint URL | `string` | `null` | no |
@@ -63,6 +64,7 @@ No modules.
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The type of EC2 instances to run for each hot node. A list of available instance types can you find at https://aws.amazon.com/en/opensearch-service/pricing/#On-Demand_instance_pricing | `string` | `"t3.small.search"` | no |
 | <a name="input_internal_user_database_enabled"></a> [internal\_user\_database\_enabled](#input\_internal\_user\_database\_enabled) | Whether the internal user database is enabled | `bool` | `false` | no |
 | <a name="input_log_publishing_options"></a> [log\_publishing\_options](#input\_log\_publishing\_options) | Configuration block for publishing slow and application logs to CloudWatch Logs. | <pre>map(object({<br>    enabled                  = optional(bool, true)<br>    cloudwatch_log_group_arn = optional(string, "")<br>  }))</pre> | `{}` | no |
+| <a name="input_maintenance_schedule"></a> [maintenance\_schedule](#input\_maintenance\_schedule) | configuration for auto tune maintenance schedule | `map(any)` | `{}` | no |
 | <a name="input_master_instance_count"></a> [master\_instance\_count](#input\_master\_instance\_count) | The number of dedicated master nodes in the cluster. | `number` | `3` | no |
 | <a name="input_master_instance_enabled"></a> [master\_instance\_enabled](#input\_master\_instance\_enabled) | Indicates whether dedicated master nodes are enabled for the cluster. | `bool` | `true` | no |
 | <a name="input_master_instance_type"></a> [master\_instance\_type](#input\_master\_instance\_type) | The type of EC2 instances to run for each master node. A list of available instance types can you find at https://aws.amazon.com/en/opensearch-service/pricing/#On-Demand_instance_pricing | `string` | `"t3.small.search"` | no |
@@ -74,6 +76,7 @@ No modules.
 | <a name="input_red_cluster_status_evaluation_periods"></a> [red\_cluster\_status\_evaluation\_periods](#input\_red\_cluster\_status\_evaluation\_periods) | The number of periods over which data is compared to the specified threshold | `number` | `1` | no |
 | <a name="input_red_cluster_status_period"></a> [red\_cluster\_status\_period](#input\_red\_cluster\_status\_period) | The period in seconds over which the specified statistic is applied | `number` | `60` | no |
 | <a name="input_red_cluster_status_threshold"></a> [red\_cluster\_status\_threshold](#input\_red\_cluster\_status\_threshold) | The value against which the specified statistic is compared. This parameter is required for alarms based on static thresholds, but should not be used for alarms based on anomaly detection models | `number` | `1` | no |
+| <a name="input_rollback_on_disable"></a> [rollback\_on\_disable](#input\_rollback\_on\_disable) | whether to roll back auto tune if auto tune is disabled | `string` | `"NO_ROLLBACK"` | no |
 | <a name="input_saml_enabled"></a> [saml\_enabled](#input\_saml\_enabled) | Whether SAML authentication is enabled | `bool` | `false` | no |
 | <a name="input_saml_entity_id"></a> [saml\_entity\_id](#input\_saml\_entity\_id) | The unique Entity ID of the application in SAML Identity Provider. | `string` | `""` | no |
 | <a name="input_saml_master_backend_role"></a> [saml\_master\_backend\_role](#input\_saml\_master\_backend\_role) | This backend role receives full permissions to the cluster, equivalent to a new master role, but can only use those permissions within Dashboards. | `string` | `null` | no |
