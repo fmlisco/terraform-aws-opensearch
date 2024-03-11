@@ -242,6 +242,24 @@ variable "internal_user_database_enabled" {
   default     = false
 }
 
+variable "create_vpc_endpoint" {
+  description = "Whether to create a VPC endpoint for the domain"
+  type        = bool
+  default     = false
+}
+
+variable "vpc_endpoint_subnet_ids" {
+  description = "Subnet IDs to use for VPC endpoint"
+  type        = list(string)
+  default     = []
+}
+
+variable "vpc_endpoint_security_group_ids" {
+  description = "Security group IDs to use for VPC endpoint"
+  type        = list(string)
+  default     = []
+}
+
 ##########
 ## SAML ##
 ##########

@@ -43,6 +43,16 @@ module "opensearch" {
     data.aws_cloudformation_export.app_sg_id.value,
   ]
 
+  # VPC endpoint creation. Disabled by default
+  create_vpc_endpoint = true
+  vpc_endpoint_subnet_ids = [
+    data.aws_cloudformation_export.web_subnet_a.value,
+    data.aws_cloudformation_export.web_subnet_b.value,
+  ]
+  vpc_endpoint_security_group_ids = [
+    data.aws_cloudformation_export.app_sg_id.value,
+  ]
+
   node_to_node_encryption_enabled = true
   encrypt_at_rest_enabled         = true
   encrypt_kms_key_id              = aws_kms_key.objects.id

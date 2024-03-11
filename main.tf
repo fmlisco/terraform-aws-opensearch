@@ -134,3 +134,14 @@ resource "aws_opensearch_domain_saml_options" "this" {
     }
   }
 }
+
+resource "aws_opensearch_vpc_endpoint" "this" {
+  count = var.create_vpc_endpoint ? 1 : 0
+
+  domain_arn = aws_opensearch_domain.this.arn
+
+  vpc_options {
+    subnet_ids         = var.vpc_endpoint_subnet_ids
+    security_group_ids = var.vpc_endpoint_security_group_ids
+  }
+}
