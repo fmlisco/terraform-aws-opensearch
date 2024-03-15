@@ -106,6 +106,26 @@ resource "aws_opensearch_domain" "this" {
     }
   }
 
+  off_peak_window_options {
+    enabled = var.enable_off_peak_window_options
+
+    dynamic "off_peak_window" {
+      for_each = var.enable_off_peak_window_options ? [1] : []
+      content {
+        dynamic "window_start_time" {
+          for_each = var.enable_off_peak_window_options ? [1] : []
+          content {
+            hours   = lookup(var.off_peak_window_options, "hours")
+            minutes = lookup(var.off_peak_window_options, "minutes")
+          }
+        }
+      }
+    }
+  }
+
+  software_update_options {
+    auto_software_update_enabled = var.auto_software_update_enabled
+  }
 
   tags = var.tags
 }
@@ -132,5 +152,16 @@ resource "aws_opensearch_domain_saml_options" "this" {
       entity_id        = var.saml_entity_id
       metadata_content = var.saml_metadata_content
     }
+  }
+}
+
+resource "aws_opensearch_vpc_endpoint" "this" {
+  count = var.create_vpc_endpoint ? 1 : 0
+
+  domain_arn = aws_opensearch_domain.this.arn
+
+  vpc_options {
+    subnet_ids         = var.vpc_endpoint_subnet_ids
+    security_group_ids = var.vpc_endpoint_security_group_ids
   }
 }

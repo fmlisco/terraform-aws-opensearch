@@ -242,6 +242,45 @@ variable "internal_user_database_enabled" {
   default     = false
 }
 
+variable "create_vpc_endpoint" {
+  description = "Whether to create a VPC endpoint for the domain"
+  type        = bool
+  default     = false
+}
+
+variable "vpc_endpoint_subnet_ids" {
+  description = "Subnet IDs to use for VPC endpoint"
+  type        = list(string)
+  default     = []
+}
+
+variable "vpc_endpoint_security_group_ids" {
+  description = "Security group IDs to use for VPC endpoint"
+  type        = list(string)
+  default     = []
+}
+
+variable "auto_software_update_enabled" {
+  description = "Whether automatic service software updates are enabled for the domain"
+  type        = bool
+  default     = false
+}
+
+variable "enable_off_peak_window_options" {
+  description = "Enabled disabled toggle for off-peak update window"
+  type        = bool
+  default     = true
+}
+
+variable "off_peak_window_options" {
+  description = "Configuration for off peak window"
+  type        = map(any)
+  default = {
+    hours   = 14
+    minutes = 0
+  }
+}
+
 ##########
 ## SAML ##
 ##########
@@ -309,6 +348,11 @@ variable "log_publishing_options" {
   default = {}
 }
 
+variable "cloudwatch_log_group_retention_days" {
+  description = "Cloudwatch log group retention period in days"
+  type        = number
+  default     = 7
+}
 
 ############
 ## Alerts ##

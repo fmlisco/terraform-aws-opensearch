@@ -31,4 +31,6 @@ module "ingestion_pipeline" {
 
   iam_role_name      = module.ingestion_iam.pipeline_role_name
   configuration_body = templatefile("./pipeline.yaml", local.pipeline_values)
+
+  persistent_buffer_enabled = true # false by default
 }

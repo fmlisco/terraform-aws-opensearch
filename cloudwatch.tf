@@ -8,7 +8,7 @@ resource "aws_cloudwatch_log_group" "aos" {
   for_each = { for k, v in local.log_publishing_options : k => v if v.enabled }
 
   name              = "${local.log_prefix}/${each.key}"
-  retention_in_days = 7
+  retention_in_days = var.cloudwatch_log_group_retention_days
 }
 
 data "aws_iam_policy_document" "aos_log_publishing" {
