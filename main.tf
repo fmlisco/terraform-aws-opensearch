@@ -106,6 +106,26 @@ resource "aws_opensearch_domain" "this" {
     }
   }
 
+  off_peak_window_options {
+    enabled = var.enable_off_peak_window_options
+
+    dynamic "off_peak_window" {
+      for_each = var.enable_off_peak_window_options ? [1] : []
+      content {
+        dynamic "window_start_time" {
+          for_each = var.enable_off_peak_window_options ? [1] : []
+          content {
+            hours   = lookup(var.off_peak_window_options, "hours")
+            minutes = lookup(var.off_peak_window_options, "minutes")
+          }
+        }
+      }
+    }
+  }
+
+  software_update_options {
+    auto_software_update_enabled = var.auto_software_update_enabled
+  }
 
   tags = var.tags
 }

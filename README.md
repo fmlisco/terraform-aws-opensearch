@@ -5,13 +5,13 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.4 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.13 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.16 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.13 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.16 |
 
 ## Modules
 
@@ -46,6 +46,7 @@ No modules.
 | <a name="input_advanced_security_options_enabled"></a> [advanced\_security\_options\_enabled](#input\_advanced\_security\_options\_enabled) | Whether advanced security is enabled | `bool` | `false` | no |
 | <a name="input_alarm_actions"></a> [alarm\_actions](#input\_alarm\_actions) | The list of actions to execute when this alarm transitions into an ALARM state from any other state. Each action is specified as an Amazon Resource Name (ARN) | `list(string)` | `[]` | no |
 | <a name="input_anonymous_auth_enabled"></a> [anonymous\_auth\_enabled](#input\_anonymous\_auth\_enabled) | Whether Anonymous auth is enabled. Enables fine-grained access control on an existing domain. Ignored unless advanced\_security\_options are enabled. Can only be enabled on an existing domain | `bool` | `false` | no |
+| <a name="input_auto_software_update_enabled"></a> [auto\_software\_update\_enabled](#input\_auto\_software\_update\_enabled) | Whether automatic service software updates are enabled for the domain | `bool` | `false` | no |
 | <a name="input_auto_tune_desired_state"></a> [auto\_tune\_desired\_state](#input\_auto\_tune\_desired\_state) | The Auto-Tune desired state for the domain. Valid values: ENABLED or DISABLED | `string` | `"ENABLED"` | no |
 | <a name="input_availability_zones"></a> [availability\_zones](#input\_availability\_zones) | The number of availability zones for the OpenSearch cluster. Valid values: 1, 2 or 3. | `number` | `3` | no |
 | <a name="input_cloudwatch_log_group_retention_days"></a> [cloudwatch\_log\_group\_retention\_days](#input\_cloudwatch\_log\_group\_retention\_days) | Cloudwatch log group retention period in days | `number` | `7` | no |
@@ -61,6 +62,7 @@ No modules.
 | <a name="input_ebs_iops"></a> [ebs\_iops](#input\_ebs\_iops) | Baseline input/output (I/O) performance of EBS volumes attached to data nodes. Applicable only for the GP3 and Provisioned IOPS EBS volume types | `number` | `3000` | no |
 | <a name="input_ebs_volume_size"></a> [ebs\_volume\_size](#input\_ebs\_volume\_size) | Size of EBS volumes attached to data nodes (in GiB) | `number` | `10` | no |
 | <a name="input_ebs_volume_type"></a> [ebs\_volume\_type](#input\_ebs\_volume\_type) | Type of EBS volumes attached to data nodes | `string` | `"gp3"` | no |
+| <a name="input_enable_off_peak_window_options"></a> [enable\_off\_peak\_window\_options](#input\_enable\_off\_peak\_window\_options) | Enabled disabled toggle for off-peak update window | `bool` | `true` | no |
 | <a name="input_encrypt_at_rest_enabled"></a> [encrypt\_at\_rest\_enabled](#input\_encrypt\_at\_rest\_enabled) | Enable encrypt at rest. | `bool` | `true` | no |
 | <a name="input_encrypt_kms_key_id"></a> [encrypt\_kms\_key\_id](#input\_encrypt\_kms\_key\_id) | The KMS key ID to encrypt the OpenSearch cluster with. If not specified, then it defaults to using the AWS OpenSearch Service KMS key. | `string` | `null` | no |
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | Specify the engine version for the Amazon OpenSearch Service domain | `string` | `"OpenSearch_1.3"` | no |
@@ -76,6 +78,7 @@ No modules.
 | <a name="input_master_user_name"></a> [master\_user\_name](#input\_master\_user\_name) | Main user's username, which is stored in the Amazon OpenSearch Service domain's internal database | `string` | `""` | no |
 | <a name="input_master_user_password"></a> [master\_user\_password](#input\_master\_user\_password) | Main user's password, which is stored in the Amazon OpenSearch Service domain's internal database | `string` | `""` | no |
 | <a name="input_node_to_node_encryption_enabled"></a> [node\_to\_node\_encryption\_enabled](#input\_node\_to\_node\_encryption\_enabled) | Enable node-to-node encryption. | `bool` | `true` | no |
+| <a name="input_off_peak_window_options"></a> [off\_peak\_window\_options](#input\_off\_peak\_window\_options) | Configuration for off peak window | `map(any)` | <pre>{<br>  "hours": 14,<br>  "minutes": 0<br>}</pre> | no |
 | <a name="input_ok_actions"></a> [ok\_actions](#input\_ok\_actions) | The list of actions to execute when this alarm transitions into an OK state from any other state. Each action is specified as an Amazon Resource Name (ARN) | `list(string)` | `[]` | no |
 | <a name="input_red_cluster_status_evaluation_periods"></a> [red\_cluster\_status\_evaluation\_periods](#input\_red\_cluster\_status\_evaluation\_periods) | The number of periods over which data is compared to the specified threshold | `number` | `1` | no |
 | <a name="input_red_cluster_status_period"></a> [red\_cluster\_status\_period](#input\_red\_cluster\_status\_period) | The period in seconds over which the specified statistic is applied | `number` | `60` | no |
@@ -102,11 +105,11 @@ No modules.
 
 ## Outputs
 
-| Name                                                                                                         | Description                                                                     |
-|--------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-| <a name="output_domain_arn"></a> [domain\_arn](#output\_domain\_arn)                                         | ARN of the OpenSearch Cluster                                                   |
-| <a name="output_domain_endpoint"></a> [domain\_endpoint](#output\_domain\_endpoint)                          | Domain-specific endpoint used to submit index, search, and data upload requests |
-| <a name="output_domain_id"></a> [domain\_id](#output\_domain\_id)                                            | Unique identifier for the Cluster                                               |
-| <a name="output_domain_name"></a> [domain\_name](#output\_domain\_name)                                      | Name of the OpenSearch Cluster                                                  |
-| <a name="output_vpc_endpoint_dns_names"></a> [vpc\_endpoint\_dns\_names](#output\_vpc\_endpoint\_dns\_names) | VPC endpoint DNS names                                                          |
-| <a name="output_vpc_endpoint_id"></a> [vpc\_endpoint\_id](#output\_vpc\_endpoint\_id)                        | VPC endpoint ID                                                                 |
+| Name | Description |
+|------|-------------|
+| <a name="output_domain_arn"></a> [domain\_arn](#output\_domain\_arn) | ARN of the OpenSearch Cluster |
+| <a name="output_domain_endpoint"></a> [domain\_endpoint](#output\_domain\_endpoint) | Domain-specific endpoint used to submit index, search, and data upload requests |
+| <a name="output_domain_id"></a> [domain\_id](#output\_domain\_id) | Unique identifier for the Cluster |
+| <a name="output_domain_name"></a> [domain\_name](#output\_domain\_name) | Name of the OpenSearch Cluster |
+| <a name="output_vpc_endpoint_dns_names"></a> [vpc\_endpoint\_dns\_names](#output\_vpc\_endpoint\_dns\_names) | VPC endpoint DNS names |
+| <a name="output_vpc_endpoint_id"></a> [vpc\_endpoint\_id](#output\_vpc\_endpoint\_id) | VPC endpoint ID |

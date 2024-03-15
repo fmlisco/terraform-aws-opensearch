@@ -260,6 +260,27 @@ variable "vpc_endpoint_security_group_ids" {
   default     = []
 }
 
+variable "auto_software_update_enabled" {
+  description = "Whether automatic service software updates are enabled for the domain"
+  type        = bool
+  default     = false
+}
+
+variable "enable_off_peak_window_options" {
+  description = "Enabled disabled toggle for off-peak update window"
+  type        = bool
+  default     = true
+}
+
+variable "off_peak_window_options" {
+  description = "Configuration for off peak window"
+  type        = map(any)
+  default = {
+    hours   = 14
+    minutes = 0
+  }
+}
+
 ##########
 ## SAML ##
 ##########
