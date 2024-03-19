@@ -19,6 +19,9 @@ module "ingestion_iam" {
   opensearch_domain_arns = [
     "arn:aws:es:${local.region}:${local.account_id}:domain/${local.domain_name}",
   ]
+  custom_role_policy_arns = [
+    "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess",
+  ]
 }
 
 module "ingestion_pipeline" {

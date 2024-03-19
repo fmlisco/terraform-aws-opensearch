@@ -10,5 +10,5 @@ output "pipeline_role_arn" {
 
 output "opensearch_ingestion_policy_arn" {
   description = "ARN of the Opensearch ingestion policy"
-  value       = local.create_opensearch_ingestion_policy ? module.pipeline_opensearch_policy.arn : null
+  value       = local.create_opensearch_ingestion_policy ? module.pipeline_opensearch_policy[0].arn : null
 }
