@@ -10,7 +10,7 @@ module "pipeline_role" {
     "osis-pipelines.amazonaws.com",
   ]
   role_requires_mfa       = false
-  custom_role_policy_arns = local.create_opensearch_ingestion_policy ? concat(var.custom_role_policy_arns, [module.pipeline_opensearch_policy[0].arn]) : var.custom_role_policy_arns
+  custom_role_policy_arns = local.create_opensearch_ingestion_policy ? concat([module.pipeline_opensearch_policy[0].arn], var.custom_role_policy_arns) : var.custom_role_policy_arns
 
   tags = var.tags
 }
