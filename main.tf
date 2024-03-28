@@ -43,6 +43,8 @@ resource "aws_opensearch_domain" "this" {
     security_group_ids = var.security_group_ids
   }
 
+  advanced_options = var.advanced_options
+
   advanced_security_options {
     enabled                        = var.advanced_security_options_enabled
     anonymous_auth_enabled         = var.anonymous_auth_enabled

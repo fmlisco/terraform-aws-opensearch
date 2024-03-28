@@ -405,3 +405,9 @@ variable "maintenance_schedule" {
   type        = map(any)
   default     = {}
 }
+
+variable "advanced_options" {
+  description = "Note that the values for these configuration options must be strings (wrapped in quotes) or they may be wrong and cause a perpetual diff, causing Terraform to want to recreate your OpenSearch domain on every apply."
+  type        = map(string)
+  default     = {}
+}
