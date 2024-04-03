@@ -13,9 +13,7 @@
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_cloudwatch_kms_secret"></a> [cloudwatch\_kms\_secret](#module\_cloudwatch\_kms\_secret) | SPHTech-Platform/kms/aws | ~> 0.1.0 |
+No modules.
 
 ## Resources
 
@@ -35,17 +33,18 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_configuration_body"></a> [configuration\_body](#input\_configuration\_body) | The Data Prepper pipeline configuration in YAML format | `string` | n/a     | yes |
-| <a name="input_enable_logging"></a> [enable\_logging](#input\_enable\_logging) | If true, will create a cloudwatch log group to monitor the pipeline | `bool` | `true`  | no |
-| <a name="input_iam_role_name"></a> [iam\_role\_name](#input\_iam\_role\_name) | Name of the pipeline IAM role | `string` | n/a     | yes |
-| <a name="input_log_group_retention_days"></a> [log\_group\_retention\_days](#input\_log\_group\_retention\_days) | Duration in days for cloudwatch log group retention | `number` | `30`    | no |
-| <a name="input_max_units"></a> [max\_units](#input\_max\_units) | The maximum pipeline capacity, in Ingestion Compute Units | `number` | n/a     | yes |
-| <a name="input_min_units"></a> [min\_units](#input\_min\_units) | The minimum pipeline capacity, in Ingestion Compute Units | `number` | n/a     | yes |
-| <a name="input_name"></a> [name](#input\_name) | Name of the ingestion pipeline | `string` | n/a     | yes |
+| <a name="input_cloudwatch_kms_key_id"></a> [cloudwatch\_kms\_key\_id](#input\_cloudwatch\_kms\_key\_id) | (Optional) Use a custom KMS key ID to encrypt Cloudwatch logs. If not specified, then it defaults to using the AWS KMS key. | `string` | `""` | no |
+| <a name="input_configuration_body"></a> [configuration\_body](#input\_configuration\_body) | The Data Prepper pipeline configuration in YAML format | `string` | n/a | yes |
+| <a name="input_enable_logging"></a> [enable\_logging](#input\_enable\_logging) | If true, will create a cloudwatch log group to monitor the pipeline | `bool` | `true` | no |
+| <a name="input_iam_role_name"></a> [iam\_role\_name](#input\_iam\_role\_name) | Name of the pipeline IAM role | `string` | n/a | yes |
+| <a name="input_log_group_retention_days"></a> [log\_group\_retention\_days](#input\_log\_group\_retention\_days) | Duration in days for cloudwatch log group retention | `number` | `30` | no |
+| <a name="input_max_units"></a> [max\_units](#input\_max\_units) | The maximum pipeline capacity, in Ingestion Compute Units | `number` | n/a | yes |
+| <a name="input_min_units"></a> [min\_units](#input\_min\_units) | The minimum pipeline capacity, in Ingestion Compute Units | `number` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Name of the ingestion pipeline | `string` | n/a | yes |
 | <a name="input_persistent_buffer_enabled"></a> [persistent\_buffer\_enabled](#input\_persistent\_buffer\_enabled) | Whether persistent buffering should be enabled | `bool` | `false` | no |
-| <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | Security group IDs to attach to the pipeline | `list(string)` | `[]`    | no |
-| <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | Subnet IDs to deploy pipeline in. Only needed if pipeline is to be deployed in VPC mode | `list(string)` | `[]`    | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}`    | no |
+| <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | Security group IDs to attach to the pipeline | `list(string)` | `[]` | no |
+| <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | Subnet IDs to deploy pipeline in. Only needed if pipeline is to be deployed in VPC mode | `list(string)` | `[]` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
 
 ## Outputs
 

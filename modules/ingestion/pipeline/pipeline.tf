@@ -34,6 +34,5 @@ resource "aws_osis_pipeline" "this" {
 
   depends_on = [
     aws_cloudwatch_log_group.this,
-    module.cloudwatch_kms_secret,
   ]
 }
