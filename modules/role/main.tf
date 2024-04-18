@@ -8,7 +8,7 @@ resource "opensearch_role" "this" {
     for_each = var.index_permissions
 
     content {
-      index_patterns          = index_permissions.key
+      index_patterns          = toset([index_permissions.key])
       allowed_actions         = index_permissions.value.allowed_actions
       document_level_security = index_permissions.value.document_level_security
       field_level_security    = index_permissions.value.field_level_security
@@ -19,7 +19,7 @@ resource "opensearch_role" "this" {
   dynamic "tenant_permissions" {
     for_each = var.tenant_permissions
     content {
-      tenant_patterns = tenant_permissions.key
+      tenant_patterns = toset([tenant_permissions.key])
       allowed_actions = tenant_permissions.value
     }
   }
