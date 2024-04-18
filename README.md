@@ -43,6 +43,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_policies"></a> [access\_policies](#input\_access\_policies) | IAM policy document specifying the access policies for the domain | `string` | `""` | no |
 | <a name="input_admin_identifiers"></a> [admin\_identifiers](#input\_admin\_identifiers) | Admin Identifiers to be allowed in the Access Policy of Opensearch Cluster | `list(string)` | <pre>[<br>  "*"<br>]</pre> | no |
+| <a name="input_advanced_options"></a> [advanced\_options](#input\_advanced\_options) | Note that the values for these configuration options must be strings (wrapped in quotes) or they may be wrong and cause a perpetual diff, causing Terraform to want to recreate your OpenSearch domain on every apply. | `map(string)` | `{}` | no |
 | <a name="input_advanced_security_options_enabled"></a> [advanced\_security\_options\_enabled](#input\_advanced\_security\_options\_enabled) | Whether advanced security is enabled | `bool` | `false` | no |
 | <a name="input_alarm_actions"></a> [alarm\_actions](#input\_alarm\_actions) | The list of actions to execute when this alarm transitions into an ALARM state from any other state. Each action is specified as an Amazon Resource Name (ARN) | `list(string)` | `[]` | no |
 | <a name="input_anonymous_auth_enabled"></a> [anonymous\_auth\_enabled](#input\_anonymous\_auth\_enabled) | Whether Anonymous auth is enabled. Enables fine-grained access control on an existing domain. Ignored unless advanced\_security\_options are enabled. Can only be enabled on an existing domain | `bool` | `false` | no |
@@ -50,6 +51,9 @@ No modules.
 | <a name="input_auto_tune_desired_state"></a> [auto\_tune\_desired\_state](#input\_auto\_tune\_desired\_state) | The Auto-Tune desired state for the domain. Valid values: ENABLED or DISABLED | `string` | `"ENABLED"` | no |
 | <a name="input_availability_zones"></a> [availability\_zones](#input\_availability\_zones) | The number of availability zones for the OpenSearch cluster. Valid values: 1, 2 or 3. | `number` | `3` | no |
 | <a name="input_cloudwatch_log_group_retention_days"></a> [cloudwatch\_log\_group\_retention\_days](#input\_cloudwatch\_log\_group\_retention\_days) | Cloudwatch log group retention period in days | `number` | `7` | no |
+| <a name="input_cognito_identity_pool_id"></a> [cognito\_identity\_pool\_id](#input\_cognito\_identity\_pool\_id) | ID of the Cognito Identity Pool to use. | `string` | `""` | no |
+| <a name="input_cognito_role_arn"></a> [cognito\_role\_arn](#input\_cognito\_role\_arn) | ARN of the IAM role that has the AmazonOpenSearchServiceCognitoAccess policy attached. | `string` | `""` | no |
+| <a name="input_cognito_user_id_pool"></a> [cognito\_user\_id\_pool](#input\_cognito\_user\_id\_pool) | ID of the Cognito User Pool to use. | `string` | `""` | no |
 | <a name="input_cold_storage_enabled"></a> [cold\_storage\_enabled](#input\_cold\_storage\_enabled) | Enable cold storage. Master and ultrawarm nodes must be enabled for cold storage. | `bool` | `false` | no |
 | <a name="input_create_service_role"></a> [create\_service\_role](#input\_create\_service\_role) | Indicates whether to create the service-linked role. See https://docs.aws.amazon.com/opensearch-service/latest/developerguide/slr.html | `bool` | `false` | no |
 | <a name="input_create_vpc_endpoint"></a> [create\_vpc\_endpoint](#input\_create\_vpc\_endpoint) | Whether to create a VPC endpoint for the domain | `bool` | `false` | no |
@@ -62,6 +66,7 @@ No modules.
 | <a name="input_ebs_iops"></a> [ebs\_iops](#input\_ebs\_iops) | Baseline input/output (I/O) performance of EBS volumes attached to data nodes. Applicable only for the GP3 and Provisioned IOPS EBS volume types | `number` | `3000` | no |
 | <a name="input_ebs_volume_size"></a> [ebs\_volume\_size](#input\_ebs\_volume\_size) | Size of EBS volumes attached to data nodes (in GiB) | `number` | `10` | no |
 | <a name="input_ebs_volume_type"></a> [ebs\_volume\_type](#input\_ebs\_volume\_type) | Type of EBS volumes attached to data nodes | `string` | `"gp3"` | no |
+| <a name="input_enable_cognito"></a> [enable\_cognito](#input\_enable\_cognito) | Whether Amazon Cognito authentication with Dashboard is enabled or not. | `bool` | `false` | no |
 | <a name="input_enable_off_peak_window_options"></a> [enable\_off\_peak\_window\_options](#input\_enable\_off\_peak\_window\_options) | Enabled disabled toggle for off-peak update window | `bool` | `true` | no |
 | <a name="input_encrypt_at_rest_enabled"></a> [encrypt\_at\_rest\_enabled](#input\_encrypt\_at\_rest\_enabled) | Enable encrypt at rest. | `bool` | `true` | no |
 | <a name="input_encrypt_kms_key_id"></a> [encrypt\_kms\_key\_id](#input\_encrypt\_kms\_key\_id) | The KMS key ID to encrypt the OpenSearch cluster with. If not specified, then it defaults to using the AWS OpenSearch Service KMS key. | `string` | `null` | no |

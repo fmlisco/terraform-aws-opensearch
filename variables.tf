@@ -57,6 +57,30 @@ variable "master_user_password" {
   default     = ""
 }
 
+variable "enable_cognito" {
+  description = "Whether Amazon Cognito authentication with Dashboard is enabled or not."
+  type        = bool
+  default     = false
+}
+
+variable "cognito_identity_pool_id" {
+  description = "ID of the Cognito Identity Pool to use."
+  type        = string
+  default     = ""
+}
+
+variable "cognito_role_arn" {
+  description = "ARN of the IAM role that has the AmazonOpenSearchServiceCognitoAccess policy attached."
+  type        = string
+  default     = ""
+}
+
+variable "cognito_user_id_pool" {
+  description = "ID of the Cognito User Pool to use."
+  type        = string
+  default     = ""
+}
+
 variable "master_instance_enabled" {
   description = "Indicates whether dedicated master nodes are enabled for the cluster."
   type        = bool

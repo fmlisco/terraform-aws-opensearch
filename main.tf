@@ -38,6 +38,13 @@ resource "aws_opensearch_domain" "this" {
     }
   }
 
+  cognito_options {
+    enabled          = var.enable_cognito
+    identity_pool_id = var.cognito_identity_pool_id
+    role_arn         = var.cognito_role_arn
+    user_pool_id     = var.cognito_user_id_pool
+  }
+
   vpc_options {
     subnet_ids         = var.subnet_ids
     security_group_ids = var.security_group_ids
