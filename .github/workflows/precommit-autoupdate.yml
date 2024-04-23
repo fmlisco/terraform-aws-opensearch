@@ -1,0 +1,30 @@
+name: Autoupdate pre-commit configs and tflint aws plugin
+
+on:
+  # every sunday at midnight
+  schedule:
+    - cron: "0 0 * * 0"
+  # on demand
+  workflow_dispatch:
+
+# Request from Org admin to allow Github Action workflow to make PR under Settings > Actions > General 
+permissions:
+  actions: read
+  checks: read
+  contents: write #require this to write to repo
+  pull-requests: write #require this to create PR
+
+jobs:
+  auto-update:
+    runs-on:
+      - self-hosted
+      - platform-eng-ent
+    steps:
+      - uses: SPHTech-Platform/gha-pre-commit-autoupdate@testgh
+        name: Update pre-commit config automatically
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: SPHTech-Platform/gha-tflint-aws-plugin-autoupdate@main
+        name: Update tflint aws plugin automatically
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
