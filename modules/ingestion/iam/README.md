@@ -1,3 +1,4 @@
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -9,7 +10,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.67.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.46.0 |
 
 ## Modules
 
@@ -22,7 +23,7 @@
 
 | Name | Type |
 |------|------|
-| [aws_iam_policy_document.opensearch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.opensearch_ingestion](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs
 
@@ -39,3 +40,4 @@
 | <a name="output_opensearch_ingestion_policy_arn"></a> [opensearch\_ingestion\_policy\_arn](#output\_opensearch\_ingestion\_policy\_arn) | ARN of the Opensearch ingestion policy |
 | <a name="output_pipeline_role_arn"></a> [pipeline\_role\_arn](#output\_pipeline\_role\_arn) | ARN of the Opensearch ingestion pipeline role |
 | <a name="output_pipeline_role_name"></a> [pipeline\_role\_name](#output\_pipeline\_role\_name) | Name of the Opensearch ingestion pipeline role |
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

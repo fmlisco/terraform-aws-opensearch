@@ -1,5 +1,6 @@
 # Opensearch
 
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -117,4 +118,6 @@ No modules.
 | <a name="output_domain_id"></a> [domain\_id](#output\_domain\_id) | Unique identifier for the Cluster |
 | <a name="output_domain_name"></a> [domain\_name](#output\_domain\_name) | Name of the OpenSearch Cluster |
 | <a name="output_vpc_endpoint_dns_names"></a> [vpc\_endpoint\_dns\_names](#output\_vpc\_endpoint\_dns\_names) | VPC endpoint DNS names |
-| <a name="output_vpc_endpoint_id"></a> [vpc\_endpoint\_id](#output\_vpc\_endpoint\_id) | VPC endpoint ID |
+| <a name="output_vpc_endpoint_endpoint"></a> [vpc\_endpoint\_endpoint](#output\_vpc\_endpoint\_endpoint) | The connection endpoint ID for connecting to the domain |
+| <a name="output_vpc_endpoint_id"></a> [vpc\_endpoint\_id](#output\_vpc\_endpoint\_id) | The unique identifier of the endpoint |
+<!-- END_TF_DOCS -->

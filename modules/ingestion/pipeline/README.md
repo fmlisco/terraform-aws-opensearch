@@ -1,3 +1,4 @@
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -9,7 +10,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.36.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.46.0 |
 
 ## Modules
 
@@ -24,8 +25,6 @@ No modules.
 | [aws_iam_role_policy_attachment.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_osis_pipeline.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/osis_pipeline) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
-| [aws_default_tags.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/default_tags) | data source |
-| [aws_iam_policy_document.cloudwatch_log_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.pipeline_cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
@@ -33,7 +32,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cloudwatch_kms_key_id"></a> [cloudwatch\_kms\_key\_id](#input\_cloudwatch\_kms\_key\_id) | (Optional) Use a custom KMS key ID to encrypt Cloudwatch logs. If not specified, then it defaults to using the AWS KMS key. | `string` | `""` | no |
+| <a name="input_cloudwatch_kms_key_id"></a> [cloudwatch\_kms\_key\_id](#input\_cloudwatch\_kms\_key\_id) | (Optional) KMS key ID for Cloudwatch logs | `string` | `null` | no |
 | <a name="input_configuration_body"></a> [configuration\_body](#input\_configuration\_body) | The Data Prepper pipeline configuration in YAML format | `string` | n/a | yes |
 | <a name="input_enable_logging"></a> [enable\_logging](#input\_enable\_logging) | If true, will create a cloudwatch log group to monitor the pipeline | `bool` | `true` | no |
 | <a name="input_iam_role_name"></a> [iam\_role\_name](#input\_iam\_role\_name) | Name of the pipeline IAM role | `string` | n/a | yes |
@@ -53,3 +52,4 @@ No modules.
 | <a name="output_arn"></a> [arn](#output\_arn) | ARN of the ingestion pipeline |
 | <a name="output_id"></a> [id](#output\_id) | ID of the ingestion pipeline |
 | <a name="output_ingest_endpoint_urls"></a> [ingest\_endpoint\_urls](#output\_ingest\_endpoint\_urls) | The ingestion endpoints for the pipeline that you can send data to |
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

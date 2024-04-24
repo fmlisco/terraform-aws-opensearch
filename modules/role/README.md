@@ -1,3 +1,4 @@
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -9,7 +10,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_opensearch"></a> [opensearch](#provider\_opensearch) | >= 2.0 |
+| <a name="provider_opensearch"></a> [opensearch](#provider\_opensearch) | 2.2.1 |
 
 ## Modules
 
@@ -39,3 +40,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The ID of the role |
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

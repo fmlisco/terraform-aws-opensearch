@@ -19,8 +19,13 @@ output "domain_endpoint" {
 }
 
 output "vpc_endpoint_id" {
-  description = "VPC endpoint ID"
+  description = "The unique identifier of the endpoint"
   value       = var.create_vpc_endpoint ? aws_opensearch_vpc_endpoint.this[0].id : null
+}
+
+output "vpc_endpoint_endpoint" {
+  description = "The connection endpoint ID for connecting to the domain"
+  value       = var.create_vpc_endpoint ? aws_opensearch_vpc_endpoint.this[0].endpoint : null
 }
 
 output "vpc_endpoint_dns_names" {

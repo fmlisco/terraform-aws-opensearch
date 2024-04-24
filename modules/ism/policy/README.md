@@ -1,3 +1,4 @@
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -9,7 +10,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_opensearch"></a> [opensearch](#provider\_opensearch) | >= 1.0 |
+| <a name="provider_opensearch"></a> [opensearch](#provider\_opensearch) | 2.2.1 |
 
 ## Modules
 
@@ -31,3 +32,4 @@ No modules.
 ## Outputs
 
 No outputs.
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
