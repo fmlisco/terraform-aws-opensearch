@@ -1,5 +1,6 @@
 resource "aws_opensearch_domain" "this" {
   #checkov:skip=CKV2_AWS_52
+  #checkov:skip=CKV_AWS_248:Ensure that Elasticsearch is not using the default Security Group
   #checkov:skip=CKV_AWS_317:Ensure Elasticsearch Domain Audit Logging is enabled
   # service linked role must exist and default cloudwatch log_group created.
   depends_on = [
@@ -91,7 +92,7 @@ resource "aws_opensearch_domain" "this" {
   }
 
   dynamic "log_publishing_options" {
-    for_each = { for k, v in local.log_publishing_options : k => v if v.enabled }
+    for_each = { for k, v in var.log_publishing_options : k => v if v.enabled }
     content {
       log_type                 = upper(log_publishing_options.key)
       enabled                  = log_publishing_options.value.enabled
@@ -124,8 +125,8 @@ resource "aws_opensearch_domain" "this" {
         dynamic "window_start_time" {
           for_each = var.enable_off_peak_window_options ? [1] : []
           content {
-            hours   = lookup(var.off_peak_window_options, "hours")
-            minutes = lookup(var.off_peak_window_options, "minutes")
+            hours   = var.off_peak_window_options["hours"]
+            minutes = var.off_peak_window_options["minutes"]
           }
         }
       }

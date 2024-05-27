@@ -1,6 +1,5 @@
 # Opensearch
 
-<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -75,7 +74,7 @@ No modules.
 | <a name="input_instance_count"></a> [instance\_count](#input\_instance\_count) | The number of dedicated hot nodes in the cluster. | `number` | `3` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The type of EC2 instances to run for each hot node. A list of available instance types can you find at https://aws.amazon.com/en/opensearch-service/pricing/#On-Demand_instance_pricing | `string` | `"t3.small.search"` | no |
 | <a name="input_internal_user_database_enabled"></a> [internal\_user\_database\_enabled](#input\_internal\_user\_database\_enabled) | Whether the internal user database is enabled | `bool` | `false` | no |
-| <a name="input_log_publishing_options"></a> [log\_publishing\_options](#input\_log\_publishing\_options) | Configuration block for publishing slow and application logs to CloudWatch Logs. | <pre>map(object({<br>    enabled                  = optional(bool, true)<br>    cloudwatch_log_group_arn = optional(string, "")<br>  }))</pre> | `{}` | no |
+| <a name="input_log_publishing_options"></a> [log\_publishing\_options](#input\_log\_publishing\_options) | Configuration block for publishing slow and application logs to CloudWatch Logs. | <pre>map(object({<br>    enabled                  = optional(bool, true)<br>    cloudwatch_log_group_arn = optional(string, "")<br>  }))</pre> | <pre>{<br>  "audit_logs": {<br>    "enabled": false<br>  },<br>  "index_slow_logs": {<br>    "enabled": true<br>  }<br>}</pre> | no |
 | <a name="input_maintenance_schedule"></a> [maintenance\_schedule](#input\_maintenance\_schedule) | configuration for auto tune maintenance schedule | `map(any)` | `{}` | no |
 | <a name="input_master_instance_count"></a> [master\_instance\_count](#input\_master\_instance\_count) | The number of dedicated master nodes in the cluster. | `number` | `3` | no |
 | <a name="input_master_instance_enabled"></a> [master\_instance\_enabled](#input\_master\_instance\_enabled) | Indicates whether dedicated master nodes are enabled for the cluster. | `bool` | `true` | no |
@@ -120,4 +119,3 @@ No modules.
 | <a name="output_vpc_endpoint_dns_names"></a> [vpc\_endpoint\_dns\_names](#output\_vpc\_endpoint\_dns\_names) | VPC endpoint DNS names |
 | <a name="output_vpc_endpoint_endpoint"></a> [vpc\_endpoint\_endpoint](#output\_vpc\_endpoint\_endpoint) | The connection endpoint ID for connecting to the domain |
 | <a name="output_vpc_endpoint_id"></a> [vpc\_endpoint\_id](#output\_vpc\_endpoint\_id) | The unique identifier of the endpoint |
-<!-- END_TF_DOCS -->

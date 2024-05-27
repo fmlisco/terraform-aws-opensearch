@@ -57,6 +57,15 @@ module "opensearch" {
   encrypt_at_rest_enabled         = true
   encrypt_kms_key_id              = aws_kms_key.objects.id
 
+  log_publishing_options = {
+    audit_logs = {
+      enabled = true
+    }
+    index_slow_logs = {
+      enabled = false
+    }
+  }
+
   tags = {
     Domain = "TestDomain"
     Name   = var.domain_name
