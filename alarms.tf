@@ -258,7 +258,7 @@ locals {
     }
 
     aos_key_inaccessible = {
-      alarm_name        = "aos_key_error"
+      alarm_name        = "aos_key_inaccessible"
       alarm_description = "the AWS KMS encryption key that is used to encrypt data at rest in your domain has been deleted or has revoked its grants to OpenSearch Service"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
