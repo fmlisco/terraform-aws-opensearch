@@ -15,7 +15,9 @@
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_cloudwatch_alarms"></a> [cloudwatch\_alarms](#module\_cloudwatch\_alarms) | terraform-aws-modules/cloudwatch/aws//wrappers/metric-alarm | ~> 4.5.0 |
 
 ## Resources
 
@@ -23,7 +25,6 @@ No modules.
 |------|------|
 | [aws_cloudwatch_log_group.aos](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws_cloudwatch_log_resource_policy.aos_log_publishing](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_resource_policy) | resource |
-| [aws_cloudwatch_metric_alarm.red_cluster_status](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
 | [aws_iam_service_linked_role.aos](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_service_linked_role) | resource |
 | [aws_opensearch_domain.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearch_domain) | resource |
 | [aws_opensearch_domain_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearch_domain_policy) | resource |
@@ -46,6 +47,7 @@ No modules.
 | <a name="input_advanced_options"></a> [advanced\_options](#input\_advanced\_options) | Note that the values for these configuration options must be strings (wrapped in quotes) or they may be wrong and cause a perpetual diff, causing Terraform to want to recreate your OpenSearch domain on every apply. | `map(string)` | `{}` | no |
 | <a name="input_advanced_security_options_enabled"></a> [advanced\_security\_options\_enabled](#input\_advanced\_security\_options\_enabled) | Whether advanced security is enabled | `bool` | `false` | no |
 | <a name="input_alarm_actions"></a> [alarm\_actions](#input\_alarm\_actions) | The list of actions to execute when this alarm transitions into an ALARM state from any other state. Each action is specified as an Amazon Resource Name (ARN) | `list(string)` | `[]` | no |
+| <a name="input_alarm_overrides"></a> [alarm\_overrides](#input\_alarm\_overrides) | A map of overrides to apply to each alarm | `any` | `{}` | no |
 | <a name="input_anonymous_auth_enabled"></a> [anonymous\_auth\_enabled](#input\_anonymous\_auth\_enabled) | Whether Anonymous auth is enabled. Enables fine-grained access control on an existing domain. Ignored unless advanced\_security\_options are enabled. Can only be enabled on an existing domain | `bool` | `false` | no |
 | <a name="input_auto_software_update_enabled"></a> [auto\_software\_update\_enabled](#input\_auto\_software\_update\_enabled) | Whether automatic service software updates are enabled for the domain | `bool` | `false` | no |
 | <a name="input_auto_tune_desired_state"></a> [auto\_tune\_desired\_state](#input\_auto\_tune\_desired\_state) | The Auto-Tune desired state for the domain. Valid values: ENABLED or DISABLED | `string` | `"ENABLED"` | no |
@@ -55,11 +57,13 @@ No modules.
 | <a name="input_cognito_role_arn"></a> [cognito\_role\_arn](#input\_cognito\_role\_arn) | ARN of the IAM role that has the AmazonOpenSearchServiceCognitoAccess policy attached. | `string` | `""` | no |
 | <a name="input_cognito_user_id_pool"></a> [cognito\_user\_id\_pool](#input\_cognito\_user\_id\_pool) | ID of the Cognito User Pool to use. | `string` | `""` | no |
 | <a name="input_cold_storage_enabled"></a> [cold\_storage\_enabled](#input\_cold\_storage\_enabled) | Enable cold storage. Master and ultrawarm nodes must be enabled for cold storage. | `bool` | `false` | no |
+| <a name="input_create_alarms"></a> [create\_alarms](#input\_create\_alarms) | Whether to create default set of alarms | `bool` | `true` | no |
 | <a name="input_create_service_role"></a> [create\_service\_role](#input\_create\_service\_role) | Indicates whether to create the service-linked role. See https://docs.aws.amazon.com/opensearch-service/latest/developerguide/slr.html | `bool` | `false` | no |
 | <a name="input_create_vpc_endpoint"></a> [create\_vpc\_endpoint](#input\_create\_vpc\_endpoint) | Whether to create a VPC endpoint for the domain | `bool` | `false` | no |
 | <a name="input_custom_endpoint"></a> [custom\_endpoint](#input\_custom\_endpoint) | Custom Endpoint URL | `string` | `null` | no |
 | <a name="input_custom_endpoint_certificate_arn"></a> [custom\_endpoint\_certificate\_arn](#input\_custom\_endpoint\_certificate\_arn) | Custom Endpoint Certificate ARN | `string` | `null` | no |
 | <a name="input_custom_endpoint_enabled"></a> [custom\_endpoint\_enabled](#input\_custom\_endpoint\_enabled) | custom endpoint enabled | `bool` | `false` | no |
+| <a name="input_disabled_alarms"></a> [disabled\_alarms](#input\_disabled\_alarms) | List of IDs of alarms to disable | `list(string)` | `[]` | no |
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | The name of the OpenSearch cluster. | `string` | n/a | yes |
 | <a name="input_ebs_enabled"></a> [ebs\_enabled](#input\_ebs\_enabled) | Whether EBS volumes are attached to data nodes in the domain | `bool` | `false` | no |
 | <a name="input_ebs_gp3_throughput"></a> [ebs\_gp3\_throughput](#input\_ebs\_gp3\_throughput) | Specifies the throughput (in MiB/s) of the EBS volumes attached to data nodes. Applicable only for the gp3 volume type. Valid values are between 125 and 1000 | `number` | `125` | no |
@@ -84,10 +88,6 @@ No modules.
 | <a name="input_master_user_password"></a> [master\_user\_password](#input\_master\_user\_password) | Main user's password, which is stored in the Amazon OpenSearch Service domain's internal database | `string` | `""` | no |
 | <a name="input_node_to_node_encryption_enabled"></a> [node\_to\_node\_encryption\_enabled](#input\_node\_to\_node\_encryption\_enabled) | Enable node-to-node encryption. | `bool` | `true` | no |
 | <a name="input_off_peak_window_options"></a> [off\_peak\_window\_options](#input\_off\_peak\_window\_options) | Configuration for off peak window | `map(any)` | <pre>{<br>  "hours": 14,<br>  "minutes": 0<br>}</pre> | no |
-| <a name="input_ok_actions"></a> [ok\_actions](#input\_ok\_actions) | The list of actions to execute when this alarm transitions into an OK state from any other state. Each action is specified as an Amazon Resource Name (ARN) | `list(string)` | `[]` | no |
-| <a name="input_red_cluster_status_evaluation_periods"></a> [red\_cluster\_status\_evaluation\_periods](#input\_red\_cluster\_status\_evaluation\_periods) | The number of periods over which data is compared to the specified threshold | `number` | `1` | no |
-| <a name="input_red_cluster_status_period"></a> [red\_cluster\_status\_period](#input\_red\_cluster\_status\_period) | The period in seconds over which the specified statistic is applied | `number` | `60` | no |
-| <a name="input_red_cluster_status_threshold"></a> [red\_cluster\_status\_threshold](#input\_red\_cluster\_status\_threshold) | The value against which the specified statistic is compared. This parameter is required for alarms based on static thresholds, but should not be used for alarms based on anomaly detection models | `number` | `1` | no |
 | <a name="input_rollback_on_disable"></a> [rollback\_on\_disable](#input\_rollback\_on\_disable) | whether to roll back auto tune if auto tune is disabled | `string` | `"NO_ROLLBACK"` | no |
 | <a name="input_saml_enabled"></a> [saml\_enabled](#input\_saml\_enabled) | Whether SAML authentication is enabled | `bool` | `false` | no |
 | <a name="input_saml_entity_id"></a> [saml\_entity\_id](#input\_saml\_entity\_id) | The unique Entity ID of the application in SAML Identity Provider. | `string` | `""` | no |

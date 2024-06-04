@@ -305,6 +305,30 @@ variable "off_peak_window_options" {
   }
 }
 
+variable "auto_tune_desired_state" {
+  description = "The Auto-Tune desired state for the domain. Valid values: ENABLED or DISABLED"
+  type        = string
+  default     = "ENABLED"
+}
+
+variable "rollback_on_disable" {
+  description = "whether to roll back auto tune if auto tune is disabled"
+  type        = string
+  default     = "NO_ROLLBACK"
+}
+
+variable "maintenance_schedule" {
+  description = "configuration for auto tune maintenance schedule"
+  type        = map(any)
+  default     = {}
+}
+
+variable "advanced_options" {
+  description = "Note that the values for these configuration options must be strings (wrapped in quotes) or they may be wrong and cause a perpetual diff, causing Terraform to want to recreate your OpenSearch domain on every apply."
+  type        = map(string)
+  default     = {}
+}
+
 ##########
 ## SAML ##
 ##########
@@ -389,57 +413,26 @@ variable "cloudwatch_log_group_retention_days" {
 ############
 ## Alerts ##
 ############
-
-variable "red_cluster_status_evaluation_periods" {
-  description = "The number of periods over which data is compared to the specified threshold"
-  type        = number
-  default     = 1
-}
-
-variable "red_cluster_status_period" {
-  description = "The period in seconds over which the specified statistic is applied"
-  type        = number
-  default     = 60
-}
-
-variable "red_cluster_status_threshold" {
-  description = "The value against which the specified statistic is compared. This parameter is required for alarms based on static thresholds, but should not be used for alarms based on anomaly detection models"
-  type        = number
-  default     = 1
-}
-
 variable "alarm_actions" {
   description = "The list of actions to execute when this alarm transitions into an ALARM state from any other state. Each action is specified as an Amazon Resource Name (ARN)"
   type        = list(string)
   default     = []
 }
 
-variable "ok_actions" {
-  description = "The list of actions to execute when this alarm transitions into an OK state from any other state. Each action is specified as an Amazon Resource Name (ARN)"
+variable "create_alarms" {
+  description = "Whether to create default set of alarms"
+  type        = bool
+  default     = true
+}
+
+variable "alarm_overrides" {
+  description = "A map of overrides to apply to each alarm"
+  default     = {}
+  type        = any
+}
+
+variable "disabled_alarms" {
+  description = "List of IDs of alarms to disable"
   type        = list(string)
   default     = []
-}
-
-variable "auto_tune_desired_state" {
-  description = "The Auto-Tune desired state for the domain. Valid values: ENABLED or DISABLED"
-  type        = string
-  default     = "ENABLED"
-}
-
-variable "rollback_on_disable" {
-  description = "whether to roll back auto tune if auto tune is disabled"
-  type        = string
-  default     = "NO_ROLLBACK"
-}
-
-variable "maintenance_schedule" {
-  description = "configuration for auto tune maintenance schedule"
-  type        = map(any)
-  default     = {}
-}
-
-variable "advanced_options" {
-  description = "Note that the values for these configuration options must be strings (wrapped in quotes) or they may be wrong and cause a perpetual diff, causing Terraform to want to recreate your OpenSearch domain on every apply."
-  type        = map(string)
-  default     = {}
 }
