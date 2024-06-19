@@ -1,16 +1,15 @@
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.4 |
-| <a name="requirement_opensearch"></a> [opensearch](#requirement\_opensearch) | >= 1.0 |
+| <a name="requirement_opensearch"></a> [opensearch](#requirement\_opensearch) | >= 2.3 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_opensearch"></a> [opensearch](#provider\_opensearch) | 2.2.1 |
+| <a name="provider_opensearch"></a> [opensearch](#provider\_opensearch) | >= 2.3 |
 
 ## Modules
 
@@ -28,6 +27,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_pattern"></a> [pattern](#input\_pattern) | The index pattern | `string` | n/a | yes |
 | <a name="input_pattern_id"></a> [pattern\_id](#input\_pattern\_id) | The ID of index pattern | `string` | `null` | no |
+| <a name="input_tenant_name"></a> [tenant\_name](#input\_tenant\_name) | The name of the tenant to which dashboard data associates. Empty string defaults to global tenant | `string` | `""` | no |
 | <a name="input_time_field_name"></a> [time\_field\_name](#input\_time\_field\_name) | Field name which has the timestamp | `string` | n/a | yes |
 
 ## Outputs
@@ -35,4 +35,3 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The ID of the index pattern |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

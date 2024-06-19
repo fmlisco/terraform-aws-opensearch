@@ -3,7 +3,8 @@ locals {
 }
 
 resource "opensearch_dashboard_object" "index_pattern" {
-  body = <<EOF
+  tenant_name = var.tenant_name
+  body        = <<EOF
 [
   {
     "_id": "index-pattern:${local.id}",
