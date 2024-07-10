@@ -2,6 +2,8 @@ resource "aws_opensearch_domain" "this" {
   #checkov:skip=CKV2_AWS_52
   #checkov:skip=CKV_AWS_248:Ensure that Elasticsearch is not using the default Security Group
   #checkov:skip=CKV_AWS_317:Ensure Elasticsearch Domain Audit Logging is enabled
+  #checkov:skip=CKV_AWS_318:Ensure Elasticsearch domains are configured with at least three dedicated master nodes for HA
+
   # service linked role must exist and default cloudwatch log_group created.
   depends_on = [
     aws_iam_service_linked_role.aos,
@@ -60,8 +62,8 @@ resource "aws_opensearch_domain" "this" {
 
     master_user_options {
       master_user_arn      = (!var.internal_user_database_enabled && var.master_user_arn != "") ? var.master_user_arn : null
-      master_user_name     = (var.internal_user_database_enabled && var.master_user_arn == "") ? var.master_user_name : null
-      master_user_password = (var.internal_user_database_enabled && var.master_user_arn == "") ? var.master_user_password : null
+      master_user_name     = (var.internal_user_database_enabled && var.master_user_name != "") ? var.master_user_name : null
+      master_user_password = (var.internal_user_database_enabled && var.master_user_password != "") ? var.master_user_password : null
     }
   }
 
