@@ -1,5 +1,3 @@
-# Opensearch
-
 ## Requirements
 
 | Name | Version |
@@ -17,7 +15,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cloudwatch_alarms"></a> [cloudwatch\_alarms](#module\_cloudwatch\_alarms) | terraform-aws-modules/cloudwatch/aws//wrappers/metric-alarm | ~> 4.5.0 |
+| <a name="module_cloudwatch_alarms"></a> [cloudwatch\_alarms](#module\_cloudwatch\_alarms) | terraform-aws-modules/cloudwatch/aws//wrappers/metric-alarm | ~> 5.4.0 |
 
 ## Resources
 

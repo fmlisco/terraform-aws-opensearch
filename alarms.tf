@@ -4,7 +4,7 @@ locals {
   default_alarms = {
     # cluster status
     cluster_status_red = {
-      alarm_name        = "cluster_status_red"
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_cluster_status_red"
       alarm_description = "${aws_opensearch_domain.this.domain_name} has entered redstatus. One or more primary shard and its replicaes are not allocated to a node"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -24,7 +24,7 @@ locals {
     }
 
     cluster_status_yellow = {
-      alarm_name        = "cluster_status_yellow"
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_cluster_status_yellow"
       alarm_description = "${aws_opensearch_domain.this.domain_name} has entered yellow status. One or more indexes do not have a replica shard. "
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -44,7 +44,7 @@ locals {
     }
 
     cluster_writes_blocked = {
-      alarm_name        = "cluster_writes_blocked"
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_cluster_writes_blocked"
       alarm_description = "${aws_opensearch_domain.this.domain_name} is blocking write requests"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -85,7 +85,7 @@ locals {
 
     # cpu utilization
     data_high_cpu_utilization = {
-      alarm_name        = "data_high_cpu_util"
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_data_high_cpu_util"
       alarm_description = "high cpu utilization on aos data nodes"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -106,7 +106,7 @@ locals {
     }
 
     master_high_cpu_utilization = {
-      alarm_name        = "master_high_cpu_util"
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_master_high_cpu_util"
       alarm_description = "high cpu utilization on aos master nodes"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -128,7 +128,7 @@ locals {
 
     warm_high_cpu_utilization = {
       create            = var.warm_instance_count != null
-      alarm_name        = "warm_high_cpu_util"
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_warm_high_cpu_util"
       alarm_description = "high cpu utilization on aos warm nodes"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -151,7 +151,7 @@ locals {
 
     # jvm pressure
     data_high_jvm_pressure = {
-      alarm_name        = "data_high_jvm_pressure"
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_data_high_jvm_pressure"
       alarm_description = "high jvm_pressure on aos data nodes"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -172,7 +172,7 @@ locals {
     }
 
     data_high_oldjvm_pressure = {
-      alarm_name        = "data_high_oldgenjvm_pressure"
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_data_high_oldgenjvm_pressure"
       alarm_description = "high old gen jvm pressure on aos warm nodes"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -193,7 +193,7 @@ locals {
     }
 
     master_high_jvm_pressure = {
-      alarm_name        = "master_high_jvm_pressure"
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_master_high_jvm_pressure"
       alarm_description = "high jvm_pressure on aos master nodes"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -214,7 +214,7 @@ locals {
     }
 
     master_high_oldjvm_pressure = {
-      alarm_name        = "master_high_oldgenjvm_pressure"
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_master_high_oldgenjvm_pressure"
       alarm_description = "high old gen jvm pressure on aos master nodes"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -237,7 +237,8 @@ locals {
 
     # kms
     aos_key_error = {
-      alarm_name        = "aos_key_error"
+      create            = var.encrypt_kms_key_id != null
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_aos_key_error"
       alarm_description = "the AWS KMS encryption key that is used to encrypt data at rest in your domain is disabled"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -258,7 +259,8 @@ locals {
     }
 
     aos_key_inaccessible = {
-      alarm_name        = "aos_key_inaccessible"
+      create            = var.encrypt_kms_key_id != null
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_aos_key_inaccessible"
       alarm_description = "the AWS KMS encryption key that is used to encrypt data at rest in your domain has been deleted or has revoked its grants to OpenSearch Service"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -280,7 +282,7 @@ locals {
 
     # 5xx errors
     server_errors = {
-      alarm_name        = "server_errors"
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_server_errors"
       alarm_description = "One or more data nodes might be overloaded, or requests are failing to complete within the idle timeout period"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -301,7 +303,7 @@ locals {
 
     # threadpool
     threadpool_high_write_avg = {
-      alarm_name        = "high_threadpool_write_queue_avg"
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_high_threadpool_write_queue_avg"
       alarm_description = "the cluster is experiencing high indexing concurrency"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -321,7 +323,7 @@ locals {
     }
 
     threadpool_high_search_avg = {
-      alarm_name        = "high_threadpool_search_avg"
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_high_threadpool_search_avg"
       alarm_description = "	The cluster is experiencing high search concurrency. Consider scaling your cluster. You can also increase the search queue size, but increasing it excessively can cause out of memory errors."
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -341,7 +343,7 @@ locals {
     }
 
     threadpool_high_search_max = {
-      alarm_name        = "high_threadpool_search_max"
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_high_threadpool_search_max"
       alarm_description = "	The cluster is experiencing high search concurrency. Consider scaling your cluster. You can also increase the search queue size, but increasing it excessively can cause out of memory errors."
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -366,7 +368,7 @@ locals {
 
 module "cloudwatch_alarms" {
   source  = "terraform-aws-modules/cloudwatch/aws//wrappers/metric-alarm"
-  version = "~> 4.5.0"
+  version = "~> 5.4.0"
 
   items = local.alarms
 }
