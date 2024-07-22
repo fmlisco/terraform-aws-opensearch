@@ -80,6 +80,7 @@ locals {
       dimensions = {
         DomainName = aws_opensearch_domain.this.domain_name
       }
+      alarm_actions = var.alarm_actions
     }
     # /cluster status
 
