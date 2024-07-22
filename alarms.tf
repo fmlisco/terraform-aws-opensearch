@@ -362,6 +362,28 @@ locals {
       }
       alarm_actions = var.alarm_actions
     }
+
+    # Migrations
+    hot_to_warm_migration_failure = {
+      create            = var.warm_instance_enabled
+      alarm_name        = "${aws_opensearch_domain.this.domain_name}_hot_to_warm_migration_failure"
+      alarm_description = "Hot to warm migration failure"
+
+      comparison_operator = "GreaterThanOrEqualToThreshold"
+      evaluation_periods  = 1
+      threshold           = 1
+      period              = 1 * local.minute
+
+      namespace          = "ES/OpenSearchService"
+      metric_name        = "HotToWarmMigrationFailureCount"
+      statistic          = "Maximum"
+      treat_missing_data = "notBreaching"
+
+      dimensions = {
+        DomainName = aws_opensearch_domain.this.domain_name
+      }
+      alarm_actions = var.alarm_actions
+    }
   }
 
   alarms = { for k, v in local.default_alarms : k => merge(v, try(var.alarm_overrides[k], {})) if var.create_alarms && !contains(var.disabled_alarms, k) }
