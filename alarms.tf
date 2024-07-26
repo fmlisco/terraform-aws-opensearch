@@ -128,9 +128,9 @@ locals {
     }
 
     warm_high_cpu_utilization = {
-      create            = var.warm_instance_count != null
-      alarm_name        = "${aws_opensearch_domain.this.domain_name}_warm_high_cpu_util"
-      alarm_description = "high cpu utilization on aos warm nodes"
+      create_metric_alarm = var.warm_instance_enabled
+      alarm_name          = "${aws_opensearch_domain.this.domain_name}_warm_high_cpu_util"
+      alarm_description   = "high cpu utilization on aos warm nodes"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
       evaluation_periods  = 3
@@ -238,9 +238,9 @@ locals {
 
     # kms
     aos_key_error = {
-      create            = var.encrypt_kms_key_id != null
-      alarm_name        = "${aws_opensearch_domain.this.domain_name}_aos_key_error"
-      alarm_description = "the AWS KMS encryption key that is used to encrypt data at rest in your domain is disabled"
+      create_metric_alarm = var.encrypt_kms_key_id != null
+      alarm_name          = "${aws_opensearch_domain.this.domain_name}_aos_key_error"
+      alarm_description   = "the AWS KMS encryption key that is used to encrypt data at rest in your domain is disabled"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
       evaluation_periods  = 1
@@ -260,9 +260,9 @@ locals {
     }
 
     aos_key_inaccessible = {
-      create            = var.encrypt_kms_key_id != null
-      alarm_name        = "${aws_opensearch_domain.this.domain_name}_aos_key_inaccessible"
-      alarm_description = "the AWS KMS encryption key that is used to encrypt data at rest in your domain has been deleted or has revoked its grants to OpenSearch Service"
+      create_metric_alarm = var.encrypt_kms_key_id != null
+      alarm_name          = "${aws_opensearch_domain.this.domain_name}_aos_key_inaccessible"
+      alarm_description   = "the AWS KMS encryption key that is used to encrypt data at rest in your domain has been deleted or has revoked its grants to OpenSearch Service"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
       evaluation_periods  = 1
@@ -365,9 +365,9 @@ locals {
 
     # Migrations
     hot_to_warm_migration_failure = {
-      create            = var.warm_instance_enabled
-      alarm_name        = "${aws_opensearch_domain.this.domain_name}_hot_to_warm_migration_failure"
-      alarm_description = "Hot to warm migration failure"
+      create_metric_alarm = var.warm_instance_enabled
+      alarm_name          = "${aws_opensearch_domain.this.domain_name}_hot_to_warm_migration_failure"
+      alarm_description   = "Hot to warm migration failure"
 
       comparison_operator = "GreaterThanOrEqualToThreshold"
       evaluation_periods  = 1
