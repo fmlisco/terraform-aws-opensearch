@@ -48,10 +48,10 @@ resource "aws_opensearch_domain" "this" {
     user_pool_id     = var.cognito_user_id_pool
   }
 
-  vpc_options {
-    subnet_ids         = var.subnet_ids
-    security_group_ids = var.security_group_ids
-  }
+  # vpc_options {
+  #   subnet_ids         = var.subnet_ids
+  #   security_group_ids = var.security_group_ids
+  # }
 
   advanced_options = var.advanced_options
 
@@ -167,13 +167,13 @@ resource "aws_opensearch_domain_saml_options" "this" {
   }
 }
 
-resource "aws_opensearch_vpc_endpoint" "this" {
-  count = var.create_vpc_endpoint ? 1 : 0
+# resource "aws_opensearch_vpc_endpoint" "this" {
+#   count = var.create_vpc_endpoint ? 1 : 0
 
-  domain_arn = aws_opensearch_domain.this.arn
+#   domain_arn = aws_opensearch_domain.this.arn
 
-  vpc_options {
-    subnet_ids         = var.vpc_endpoint_subnet_ids
-    security_group_ids = var.vpc_endpoint_security_group_ids
-  }
-}
+#   vpc_options {
+#     subnet_ids         = var.vpc_endpoint_subnet_ids
+#     security_group_ids = var.vpc_endpoint_security_group_ids
+#   }
+# }
